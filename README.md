@@ -17,13 +17,3 @@ $ npm install
 # Starting client app
 $ npm start
 ```
-
-In a new terminal window, you'll also need to run this project's server API.
-```sh
-# While in this project's root folder, cd into the server folder
-$ cd server
-# installing server dependencies
-$ npm install
-# starting server
-$ node server
-```

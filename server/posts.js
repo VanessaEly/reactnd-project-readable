@@ -1,3 +1,4 @@
+/* eslint-disable */
 const clone = require('clone')
 
 let db = {}
