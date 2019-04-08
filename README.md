@@ -14,6 +14,6 @@ $ git clone git@github.com:VanessaEly/reactnd-project-readable.git
 $ cd reactnd-project-readable
 # Installing project dependencies
 $ npm install
-# Starting client app
+# Starting app. This command will get both our app and server running
 $ npm start
 ```

@@ -1,36 +1,44 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { BrowserRouter, Route  } from 'react-router-dom';
+import LoadingBar from 'react-redux-loading-bar';
 import PropTypes from 'prop-types';
-// import LoadingBar from 'react-redux-loading-bar';
-import { handleInitialData } from '../actions/shared';
+import Dashboard from './Dashboard';
+import PostDetails from './PostDetails';
+import { receiveCategories } from '../actions/categories';
+import { receivePosts } from '../actions/posts';
+import Navbar from './Navbar';
 
 class App extends Component {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(handleInitialData());
+    this.props.receiveCategories();
   }
-
   render() {
     return (
-      <Fragment>
-        {/* <LoadingBar /> */}
-        <div className="App">
-          <section className="section">
-            <div className="container">
-              <h1 className="title">Readable</h1>
-              <p className="subtitle">Udacity Project by Vanessa Ely</p>
-            </div>
-          </section>
-        </div>
-      </Fragment>
+      <BrowserRouter>
+        
+        <LoadingBar />
+        {this.props.loading
+          ? null
+          : 
+          <Fragment>
+            <Navbar />
+            <Route path='/' exact component={Dashboard} />
+            <Route exact path="/:category" component={Dashboard} />
+            <Route path='/:category/:post_id' component={PostDetails} />
+          </Fragment>
+        }
+      </BrowserRouter>
     );
   }
 }
-
-// Type checking the props of the component
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  receiveCategories: PropTypes.func,
+  receivePosts: PropTypes.func
 };
-
-
-export default connect()(App);
+function mapStateToProps ({ categories}) {
+  return {
+    loading: categories === null,
+  }
+};
+export default connect(mapStateToProps, { receiveCategories, receivePosts })(App);
