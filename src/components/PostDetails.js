@@ -9,7 +9,7 @@ class PostDetails extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="hero-body">
         PostDetails
       </div>
     )

@@ -1,0 +1,46 @@
+@import './shared/colors.scss';
+
+.hero-head {
+  .navbar-brand {
+    font-size: 1.5rem;
+    // padding-left: 3rem;
+    
+    .navbar-item {
+      font-weight: 300;
+      letter-spacing: 0.2rem;
+      padding: 0 2rem 0 2rem;
+      p {
+        padding-left: 1rem;
+      }
+    }
+  }
+  .navbar-menu.is-active {
+    color: black;
+  }
+  background-color: $green;
+  border-color: $green;
+  color: whitesmoke;
+  .navbar-burger {
+    color: whitesmoke;
+  }
+  .navbar-item {
+    &:hover {
+      background-color: $light-gray !important;
+    }
+  }
+}
+
+.navbar .navbar-center {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+.navbar .navbar-center > .navbar-item,
+.navbar .navbar-center .navbar-link {
+  display: inline-block;
+  line-height: 2.2rem;
+  padding: 0.5rem 4rem;
+  text-transform: capitalize;
+  font-weight: 300;
+}
