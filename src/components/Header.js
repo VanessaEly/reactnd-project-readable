@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import PropTypes from 'prop-types';
+import Loading from './Loading';
+import { receiveCategories } from '../actions/categories';
 class Navbar extends Component {
   state = {
     navToggled: false,
+  }
+  componentDidMount() {
+    this.props.receiveCategories();
   }
   toggleNav = (e) => {
     e.preventDefault();
@@ -12,7 +17,7 @@ class Navbar extends Component {
   }
   render() {
     const { navToggled } = this.state;
-    const { categories } = this.props;
+    const { loading, categories } = this.props;
 
     const isToggled = navToggled && 'is-active';
     return (
@@ -34,9 +39,11 @@ class Navbar extends Component {
             </div>
             <div id="navbarMenuHeroB" className={`navbar-menu ${isToggled}`}>
               <div className="navbar-center ">
-                {categories.map((category) => (
-                  <Link className="navbar-item" to={`/${category.path}`} key={category.name}>{category.name}</Link>
-                ))}
+                {loading 
+                  ? <Loading />
+                  : categories.map((category) => (
+                    <Link className="navbar-item" to={`/${category.path}`} key={category.name}>{category.name}</Link>
+                  ))}
               </div>
             </div>
           </div>
@@ -45,9 +52,16 @@ class Navbar extends Component {
     );
   }
 };
-const mapStateToProps = ({ categories }) => ({
-  ...categories
-});
 
+Navbar.propTypes = {
+  receiveCategories: PropTypes.func.isRequired,
+};
 
-export default connect(mapStateToProps)(Navbar);
+function mapStateToProps ({ categories}) {
+  return {
+    loading: categories === null,
+    ...categories,
+  }
+};
+
+export default connect(mapStateToProps, { receiveCategories })(Navbar);

@@ -1,19 +1,17 @@
 import { FETCH_POSTS, FETCH_POST } from '../actions/types';
 
-export default function posts(state = {}, action) {
+export default function posts(state = null, action) {
   switch (action.type) {
     case FETCH_POSTS:
-      // returning the current state merged with the posts of our action
-      return { ...state, ...action.posts };
+      return { ...action.posts };
     case FETCH_POST:
-      const { details } = action;
       return {
         ...state,
         posts: {
-          [details.id]: {
-            ...details
+          [action.details.id]: {
+            ...action.details,
           },
-        }
+        },
       };
     default:
       return state;

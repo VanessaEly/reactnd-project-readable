@@ -16,7 +16,7 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-const getPostDetails = (id) => fetch(`${API}/posts/${id}`, { headers })
+const getPostDetails = id => fetch(`${API}/posts/${id}`, { headers })
   .then(res => res.json())
   .then(data => data);
 
@@ -28,9 +28,9 @@ const getCategories = () => fetch(`${API}/categories`, { headers })
   .then(res => res.json())
   .then(data => data);
 
-const getPostsByCategory = (category) => fetch(`${API}/${category}/posts`, { headers })
-.then(res => res.json())
-.then(data => data);
+const getPostsByCategory = category => fetch(`${API}/${category}/posts`, { headers })
+  .then(res => res.json())
+  .then(data => data);
 
 export {
   getPostDetails,
