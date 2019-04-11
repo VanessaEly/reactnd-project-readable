@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { receivePostDetails } from '../actions/posts';
-
+import Post from '../components/post/Post';
 class PostDetails extends Component {
   componentDidMount() {
     const { getPostDetails, match: { params: { post_id: id } } } = this.props;
@@ -10,8 +10,15 @@ class PostDetails extends Component {
   }
 
   render() {
+    const { post, match: { params: { post_id: activePost } } } = this.props;
     return (
-      <div className="hero-body">PostDetails</div>
+      <div className="hero-body">
+        <div className="container is-fluid">
+          <div className="columns is-centered">
+            {post && <Post key={post[activePost].id} {...post[activePost]} />}
+          </div>
+        </div>
+      </div>
     );
   }
 }
@@ -28,7 +35,7 @@ PostDetails.propTypes = {
 const mapStateToProps = ({ posts }) => {
   const props = {};
   if (posts) {
-    props.post = posts[Object.keys(posts)[0]];
+    props.post = posts.activePost;
   }
   return props;
 };

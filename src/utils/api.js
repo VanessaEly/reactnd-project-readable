@@ -32,9 +32,17 @@ const getPostsByCategory = category => fetch(`${API}/${category}/posts`, { heade
   .then(res => res.json())
   .then(data => data);
 
+const postUpdateVote = (id, option) => fetch(`${API}/posts/${id}`, { 
+  method: 'POST',
+  headers,
+  body: JSON.stringify({option}) })
+  .then(res => res.json())
+  .then(data => data);
+  
 export {
   getPostDetails,
   getPosts,
   getCategories,
   getPostsByCategory,
+  postUpdateVote,
 };

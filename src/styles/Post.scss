@@ -1,3 +1,11 @@
+@import './shared/colors.scss';
+
+.card {
+  background-color: $lighter-gray;
+}
+.card-content {
+  background-color: $white;
+}
 .card-footer {
   justify-content: space-between;
 }

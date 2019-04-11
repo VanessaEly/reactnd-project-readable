@@ -22,8 +22,8 @@ const PostHeader = (props) => {
           </div>
         </div>
         <div className="media-content">
-          <p className="title is-4">{title}</p>
-          <p className="subtitle is-6">
+          <p className="title is-6">{title}</p>
+          <p className="subtitle is-7">
             {`Posted by ${author} - ${timestampToDate(timestamp)}`}
           </p>
         </div>

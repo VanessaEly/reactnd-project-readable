@@ -1,9 +1,13 @@
 @import './colors.scss';
 
+.progress {
+  width: 30%;
+}
+
 @mixin avatar($size) {
   width: $size;
   height: $size;
-  background-color: $gray;
+  background-color: $dark-green;
   text-align: center;
   border-radius: 50%;
   -webkit-border-radius: 50%;
@@ -11,7 +15,7 @@
 
   .initials {
     position: relative;
-    top: $size*0.25;
+    top: $size*0.2;
     font-size: $size*0.5;
     line-height: $size*0.5;
     color: #fff;
@@ -20,6 +24,4 @@
   }
 }
 
-.avatar-circle      { @include avatar(100px); }
-.avatar-circle-sm   { @include avatar(50px); }
-.avatar-circle-lg   { @include avatar(250px); }
+.avatar-circle-sm   { @include avatar(40px); }

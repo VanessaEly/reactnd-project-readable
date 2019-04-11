@@ -1,23 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import PostVoteMenu from './PostVoteMenu';
 
 /**
  * @constructor PostFooter
  * @description Creates the footer part of the post component
  */
 const PostFooter = (props) => {
-  const { voteScore, commentCount } = props;
+  const { id, voteScore, commentCount } = props;
   return (
     <div className="card-footer media-content">
-      <div className="thumbs-content card-header-icon">
-        <span className="card-header-icon">
-          <i className="fas fa-thumbs-up" />
-        </span>
-        {voteScore}
-        <span className="card-header-icon">
-          <i className="fas fa-thumbs-down" />
-        </span>
-      </div>
+      <PostVoteMenu id={id} voteScore={voteScore}/>
       <div className="card-header-icon media-right">
         <span className="icon">
           <i className="far fa-comment-alt" />
@@ -29,6 +22,7 @@ const PostFooter = (props) => {
 };
 
 PostFooter.propTypes = {
+  id: PropTypes.string.isRequired,
   voteScore: PropTypes.number.isRequired,
   commentCount: PropTypes.number.isRequired,
 };

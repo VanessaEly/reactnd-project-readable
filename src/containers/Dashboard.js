@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { receivePosts, receivePostsByCategory } from '../actions/posts';
 import Post from '../components/post/Post';
 import Loading from '../components/Loading';
+import PostsNotFound from '../components/post/PostsNotFound';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -33,14 +34,15 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { loading, posts } = this.props;
+    const { posts } = this.props;
     console.log(' current posts', posts);
     return (
       <Fragment>
         <div className="hero-body">
-          <div className="container has-text-centered">
-            <div className="columns">
-              {loading
+          <div className="container is-fluid">
+            <div className="columns is-centered">
+              {posts && Object.keys(posts).length === 0 && <PostsNotFound />}
+              {!posts
                 ? <Loading />
                 : Object.keys(posts).map(id => <Post key={id} {...posts[id]} />)}
             </div>
@@ -56,7 +58,6 @@ Dashboard.defaultProps = {
 };
 
 Dashboard.propTypes = {
-  loading: PropTypes.bool.isRequired,
   getAllPosts: PropTypes.func.isRequired,
   getPostsByCategory: PropTypes.func.isRequired,
   posts: PropTypes.shape({}),
@@ -77,8 +78,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = ({ posts }) => ({
-  loading: posts === null,
-  posts,
+  posts: posts ? posts.list : posts,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
