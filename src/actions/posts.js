@@ -40,10 +40,19 @@ const fetchVotePost = (id, option) => dispatch => {
     dispatch(votePost(details));
   });
 }
+const fetchDoubleVotePost = (id, option) => dispatch => {
+  postUpdateVote(id, option).then((details) => {
+    dispatch(votePost(details));
+    postUpdateVote(id, option).then((details) => {
+      dispatch(votePost(details));
+    });
+  });
+}
 
 export {
   receivePostDetails,
   receivePosts,
   receivePostsByCategory,
   fetchVotePost,
+  fetchDoubleVotePost,
 };
