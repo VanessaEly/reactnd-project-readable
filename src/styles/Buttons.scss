@@ -1,0 +1,20 @@
+@import './shared/colors.scss';
+
+.card-header-icon{
+  .fa-thumbs-up {
+    &:hover {
+      color: $light-blue,
+    }
+    &.upVote {
+      color: $light-blue !important,
+    }
+  }
+  .fa-thumbs-down {
+    &:hover {
+      color: $light-red,
+    }
+    &.downVote {
+      color: $light-red,
+    }
+  }
+}

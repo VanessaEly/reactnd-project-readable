@@ -23,6 +23,11 @@ export default function posts(state = null, action) {
             ...action.details,
           },
         },
+        activePost: {
+          [action.details.id]: {
+            ...action.details,
+          },
+        },
       };
     default:
       return state;
