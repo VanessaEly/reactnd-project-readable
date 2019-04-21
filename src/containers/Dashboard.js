@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { receivePosts, receivePostsByCategory } from '../actions/posts';
+// import NewPost from '../components/post/NewPost';
 import Post from '../components/post/Post';
 import Loading from '../components/Loading';
 import PostsNotFound from '../components/post/PostsNotFound';
@@ -35,14 +36,16 @@ class Dashboard extends Component {
 
   render() {
     const { posts } = this.props;
-    console.log(' current posts', posts);
     return (
       <Fragment>
+        <div className="columns is-centered">
+          {/* <NewPost /> */}
+        </div>
         <div className="hero-body">
           <div className="container is-fluid">
             <div className="columns is-centered">
               {posts && Object.keys(posts).length === 0 && <PostsNotFound />}
-              {!posts
+              {!posts || posts.length
                 ? <Loading />
                 : Object.keys(posts).map(id => <Post key={id} {...posts[id]} />)}
             </div>

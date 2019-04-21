@@ -3,10 +3,14 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Navbar extends Component {
-  state = {
-    navToggled: false,
+  constructor(props) {
+    // Required step: always call the parent class' constructor
+    super(props);
+    this.state = {
+      navToggled: false,
+    }
   }
-  toggleNav = (e) => {
+  toggleNav(e) {
     e.preventDefault();
     this.setState(prevState => ({ navToggled: !prevState.navToggled }));
   }

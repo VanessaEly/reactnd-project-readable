@@ -4,6 +4,10 @@
   width: 30%;
 }
 
+.help {
+  font-weight: 400 !important;
+}
+
 @mixin avatar($size) {
   width: $size;
   height: $size;
@@ -15,9 +19,9 @@
 
   .initials {
     position: relative;
-    top: $size*0.2;
-    font-size: $size*0.5;
-    line-height: $size*0.5;
+    top: $size*0.18;
+    font-size: $size*0.4;
+    line-height: $size*0.4;
     color: #fff;
     font-family: "Courier New", monospace;
     font-weight: bold;

@@ -10,7 +10,7 @@ const PostFooter = (props) => {
   const { id, voteScore, commentCount } = props;
   return (
     <div className="card-footer media-content">
-      <PostVoteMenu id={id} voteScore={voteScore}/>
+      <PostVoteMenu id={id} voteScore={voteScore} />
       <div className="card-header-icon media-right">
         <span className="icon">
           <i className="far fa-comment-alt" />

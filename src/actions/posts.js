@@ -1,5 +1,18 @@
-import { FETCH_POSTS, FETCH_POST, VOTE_POST } from './types';
-import { getPosts, getPostsByCategory, getPostDetails, postUpdateVote } from '../utils/api';
+import {
+  FETCH_POSTS,
+  FETCH_POST,
+  VOTE_POST,
+  REMOVE_POST,
+  EDIT_POST,
+} from './types';
+import {
+  getPosts,
+  getPostsByCategory,
+  getPostDetails,
+  postUpdateVote,
+  deletePost,
+  updatePost,
+} from '../utils/api';
 
 const fetchPosts = posts => ({
   type: FETCH_POSTS,
@@ -13,6 +26,16 @@ const fetchPost = details => ({
 
 const votePost = details => ({
   type: VOTE_POST,
+  details,
+});
+
+const removePost = details => ({
+  type: REMOVE_POST,
+  details,
+});
+
+const editPost = details => ({
+  type: EDIT_POST,
   details,
 });
 
@@ -35,19 +58,32 @@ const receivePostsByCategory = category => (dispatch) => {
   });
 };
 
-const fetchVotePost = (id, option) => dispatch => {
+const fetchVotePost = (id, option) => (dispatch) => {
   postUpdateVote(id, option).then((details) => {
     dispatch(votePost(details));
   });
-}
-const fetchDoubleVotePost = (id, option) => dispatch => {
+};
+
+const fetchDoubleVotePost = (id, option) => (dispatch) => {
   postUpdateVote(id, option).then((details) => {
     dispatch(votePost(details));
-    postUpdateVote(id, option).then((details) => {
-      dispatch(votePost(details));
+    postUpdateVote(id, option).then((secondDetails) => {
+      dispatch(votePost(secondDetails));
     });
   });
-}
+};
+
+const handleDeletePost = (id) => (dispatch) => {
+  deletePost(id).then((post) => {
+    dispatch(removePost(post));
+  });
+};
+
+const handleEditPost = (id, details) => (dispatch) => {
+  updatePost(id, details).then((post) => {
+    dispatch(editPost(post));
+  });
+};
 
 export {
   receivePostDetails,
@@ -55,4 +91,6 @@ export {
   receivePostsByCategory,
   fetchVotePost,
   fetchDoubleVotePost,
+  handleDeletePost,
+  handleEditPost,
 };

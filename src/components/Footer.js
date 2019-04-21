@@ -9,12 +9,14 @@ const Footer = () => (
     <div className="content has-text-centered">
       <p className="footer-header">
         <span className="has-text-weight-bold">React Readable</span>
-        {' was made with love by Vanessa Ely'}
+        {' '}
+        {'was made with love by Vanessa Ely'}
       </p>
       <p className="footer-body">
-        This is the second project from the
+        <span>This is the second project from the</span>
         <a className="has-text-weight-bold" href="https://www.udacity.com/course/react-nanodegree--nd019">
-          {' Udacity\'s React Developer Nanodegree'}
+          {' '}
+          {'Udacity\'s React Developer Nanodegree'}
         </a>
       </p>
     </div>

@@ -10,12 +10,8 @@ const PostsNotFound = () => (
       <div className="columns is-centered">
         <div className="card column is-half">
           <div className="card-content ">
-            <p className="title">
-              Sorry :( 
-            </p>
-            <p className="subtitle">
-              No posts found
-            </p>
+            <p className="title">Sorry :(</p>
+            <p className="subtitle">No posts found</p>
           </div>
         </div>
       </div>
