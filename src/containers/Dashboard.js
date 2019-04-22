@@ -81,7 +81,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = ({ posts }) => ({
-  posts: posts ? posts.list : posts,
+  posts
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

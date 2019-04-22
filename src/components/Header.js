@@ -17,8 +17,8 @@ class Navbar extends Component {
   render() {
     const { navToggled } = this.state;
     const { loading, categories } = this.props;
-
     const isToggled = navToggled && 'is-active';
+
     return (
       <div className="hero-head is-active">
         <nav className="navbar">
@@ -30,7 +30,7 @@ class Navbar extends Component {
                 </span>
                 <p>React Readable</p>
               </Link>
-              <span className={`navbar-burger burger ${isToggled}`} data-target="navbarMenuHeroB" onClick={this.toggleNav}>
+              <span className={`navbar-burger burger ${isToggled}`} data-target="navbarMenuHeroB" onClick={(e) => this.toggleNav(e)}>
                 <span></span>
                 <span></span>
                 <span></span>
@@ -39,8 +39,13 @@ class Navbar extends Component {
             <div id="navbarMenuHeroB" className={`navbar-menu ${isToggled}`}>
               <div className="navbar-center ">
                 {!loading &&
-                  categories.map((category) => (
-                    <Link className="navbar-item" to={`/${category.path}`} key={category.name}>{category.name}</Link>
+                  Object.keys(categories).map((id) => (
+                    <Link
+                      className="navbar-item"
+                      to={`/${categories[id].path}`}
+                      key={categories[id].name}>
+                        {categories[id].name}
+                    </Link>
                   ))}
               </div>
             </div>
@@ -54,7 +59,7 @@ class Navbar extends Component {
 function mapStateToProps ({ categories}) {
   return {
     loading: categories === null,
-    ...categories,
+    categories,
   }
 };
 

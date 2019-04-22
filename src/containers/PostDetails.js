@@ -12,13 +12,13 @@ class PostDetails extends Component {
   }
 
   render() {
-    const { post, match: { params: { post_id: activePost } } } = this.props;
+    const { post } = this.props;
     return (
       <div className="hero-body">
         <div className="container is-fluid">
           <div className="columns is-centered">
-            {post && post[activePost]
-              ? <Post key={post[activePost].id} {...post[activePost]} />
+            {post
+              ? <Post key={post.id} {...post} />
               : <PostsNotFound />
             }
           </div>
@@ -30,24 +30,26 @@ class PostDetails extends Component {
 
 PostDetails.propTypes = {
   post: PropTypes.shape({}),
-  getPostDetails: PropTypes.func.isRequired,
+  getPostDetails: PropTypes.func,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      post_id: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+      post_id: PropTypes.string,
+    }),
+  }),
 };
 
 PostDetails.defaultProps = {
-  post: {},
+  post: null,
 };
 
-const mapStateToProps = ({ posts }) => {
-  const props = {};
+const mapStateToProps = ({posts}, props) => {
+  const { match: { params: { post_id: id } } } = props;
+  const list = {};
   if (posts) {
-    props.post = posts.activePost;
+    list.post = posts[id]
   }
-  return props;
+  
+  return list;
 };
 
 const mapDispatchToProps = dispatch => ({
