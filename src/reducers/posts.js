@@ -37,11 +37,12 @@ export default function posts(state = null, action) {
         },
       };
     case REMOVE_POST: {
-      const newState = { ...state };
-      
-      delete newState.list[action.details.id];
-      
-      return newState;
+      const posts = Object.assign({}, state.list);
+      delete posts[action.details.id];
+      return {
+        ...state,
+        list: posts
+      }
     }
     default:
       return state;
