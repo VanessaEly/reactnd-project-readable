@@ -47,6 +47,8 @@ function getByParent (token, parentId) {
 function get (token, id) {
   return new Promise((res) => {
     const comments = getData(token)
+    console.log('comments', comments)
+    console.log(id);
     res(
       comments[id].deleted || comments[id].parentDeleted
         ? {}

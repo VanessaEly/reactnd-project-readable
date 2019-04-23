@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { fetchVotePost, fetchDoubleVotePost } from '../../actions/posts';
 
-class PostVoteMenu extends Component {
+class CardVoteMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,15 +10,14 @@ class PostVoteMenu extends Component {
   }
 
   handleVote(option) {
-    const { id, updateVote, doubleUpdateVote } = this.props;
+    const { id, updateVote } = this.props;
     const { currentVote } = this.state;
     this.setState({ currentVote: option });
     const oppositeOption = option === 'upVote' ? 'downVote' : 'upVote';
     // if there was not vote, simply vote for that option
     if (!currentVote) updateVote(id, option);
-    // if we are voting for the opposite option that was selected before, we need to vote two times,
-    // one to reset the previous vote, and one to count for the current vote
-    else if (currentVote !== option) doubleUpdateVote(id, option);
+    // if we are voting for the opposite option that was selected before, we need to vote two times
+    else if (currentVote !== option) updateVote(id, option, 2);
     // if the option was already voted, just unvote
     else {
       this.setState({ currentVote: false });
@@ -52,20 +49,10 @@ class PostVoteMenu extends Component {
     );
   }
 }
-PostVoteMenu.propTypes = {
+CardVoteMenu.propTypes = {
   id: PropTypes.string.isRequired,
   voteScore: PropTypes.number.isRequired,
   updateVote: PropTypes.func.isRequired,
-  doubleUpdateVote: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = dispatch => ({
-  updateVote: (id, option) => {
-    dispatch(fetchVotePost(id, option));
-  },
-  doubleUpdateVote: (id, option) => {
-    dispatch(fetchDoubleVotePost(id, option));
-  },
-});
-
-export default connect(null, mapDispatchToProps)(PostVoteMenu);
+export default CardVoteMenu;

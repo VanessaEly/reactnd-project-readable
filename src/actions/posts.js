@@ -8,7 +8,7 @@ import {
 import {
   getPosts,
   getPostsByCategory,
-  getPostDetails,
+  getPost,
   postUpdateVote,
   deletePost,
   updatePost,
@@ -39,7 +39,7 @@ const editPost = details => ({
   details,
 });
 
-const receivePostDetails = id => dispatch => getPostDetails(id)
+const receivePost = id => dispatch => getPost(id)
   .then((details) => {
     dispatch(fetchPost(details));
   });
@@ -58,18 +58,14 @@ const receivePostsByCategory = category => (dispatch) => {
   });
 };
 
-const fetchVotePost = (id, option) => (dispatch) => {
+const fetchVotePost = (id, option, numberOfVotes = 1) => (dispatch) => {
   postUpdateVote(id, option).then((details) => {
     dispatch(votePost(details));
-  });
-};
-
-const fetchDoubleVotePost = (id, option) => (dispatch) => {
-  postUpdateVote(id, option).then((details) => {
-    dispatch(votePost(details));
-    postUpdateVote(id, option).then((secondDetails) => {
-      dispatch(votePost(secondDetails));
-    });
+    if (numberOfVotes === 2) {
+      postUpdateVote(id, option).then((secondDetails) => {
+        dispatch(votePost(secondDetails));
+      });
+    }
   });
 };
 
@@ -86,11 +82,10 @@ const handleEditPost = (id, details) => (dispatch) => {
 };
 
 export {
-  receivePostDetails,
+  receivePost,
   receivePosts,
   receivePostsByCategory,
   fetchVotePost,
-  fetchDoubleVotePost,
   handleDeletePost,
   handleEditPost,
 };

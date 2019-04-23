@@ -16,22 +16,24 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-const getPostDetails = id => fetch(`${API}/posts/${id}`, { headers })
+// Category
+const getCategories = () => fetch(`${API}/categories`, { headers })
   .then(res => res.json());
 
+// Post
 const getPosts = () => fetch(`${API}/posts`, { headers })
   .then(res => res.json());
 
-const getCategories = () => fetch(`${API}/categories`, { headers })
+const getPost = id => fetch(`${API}/posts/${id}`, { headers })
   .then(res => res.json());
 
 const getPostsByCategory = category => fetch(`${API}/${category}/posts`, { headers })
   .then(res => res.json());
 
-const postUpdateVote = (id, option) => fetch(`${API}/posts/${id}`, {
+const addPost = (post) => fetch(`${API}/posts`, {
   method: 'POST',
   headers,
-  body: JSON.stringify({ option }),
+  body: JSON.stringify(post),
 }).then(res => res.json());
 
 const deletePost = id => fetch(`${API}/posts/${id}`, {
@@ -45,12 +47,55 @@ const updatePost = (id, details) => fetch(`${API}/posts/${id}`, {
   body: JSON.stringify(details),
 }).then(res => res.json());
 
+const postUpdateVote = (id, option) => fetch(`${API}/posts/${id}`, {
+  method: 'POST',
+  headers,
+  body: JSON.stringify({ option }),
+}).then(res => res.json());
+
+// Comment
+const getPostComments = (id) => fetch(`${API}/posts/${id}/comments`, { headers })
+  .then(res => res.json())
+
+const getComments = (id) => fetch(`${API}/comments/${id}`, { headers })
+  .then(res => res.json())
+
+const addComment = (comment) => fetch(`${API}/comments`, {
+  method: 'POST',
+  headers,
+  body: JSON.stringify(comment),
+}).then(res => res.json());
+
+const deleteComment = (id) => fetch(`${API}/comments/${id}`, {
+  method: 'DELETE',
+  headers,
+}).then(res => res.json());
+
+const updateComment = (id, details) => fetch(`${API}/comments/${id}`, {
+  method: 'PUT',
+  headers,
+  body: JSON.stringify(details),
+}).then(res => res.json());
+
+const commentUpdateVote = (id, option) => fetch(`${API}/comments/${id}`, {
+  method: 'POST',
+  headers,
+  body: JSON.stringify({ option }),
+}).then(res => res.json());
+
 export {
-  getPostDetails,
-  getPosts,
   getCategories,
+  getPosts,
+  getPost,
   getPostsByCategory,
-  postUpdateVote,
+  addPost,
   deletePost,
   updatePost,
+  postUpdateVote,
+  getPostComments,
+  getComments,
+  addComment,
+  deleteComment,
+  updateComment,
+  commentUpdateVote,
 };

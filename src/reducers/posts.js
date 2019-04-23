@@ -7,7 +7,7 @@ import {
 } from '../actions/types';
 import { organizeByKey } from '../utils/shared';
 
-export default function posts(state = null, action) {
+const posts = (state = null, action) => {
   switch (action.type) {
     case FETCH_POSTS:
       return action.posts ? { ...state, ...organizeByKey('id', action.posts) } : null;
@@ -35,3 +35,5 @@ export default function posts(state = null, action) {
       return state;
   }
 }
+
+export default posts;
