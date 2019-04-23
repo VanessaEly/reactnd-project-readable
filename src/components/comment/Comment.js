@@ -1,87 +1,81 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import PostHeader from '../post/PostHeader';
+import CardBody from '../card/CardBody';
 import CardFooter from '../card/CardFooter';
-// import { handleEditPost, handleDeletePost } from '../../actions/posts';
+import { handleEditComment, handleDeleteComment } from '../../actions/comments';
 import { fetchVoteComment } from '../../actions/comments';
+import CardMenuOptions from '../card/CardMenuOptions';
+import { timestampToDate } from '../../utils/shared';
+import UserAvatar from '../UserAvatar';
 
 class Comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isEditMode: false,
-      titleInput: '',
-      bodyInput: '',
     }
-  }
-  /**
-   * Handles changes on the editMode body input
-   */
-  handleBodyChange = (e) => {
-    this.setState({bodyInput: e.target.value});
   }
   /**
    * Handles the savePost method, which is triggered by the editMode 'save' button.
    */
-  // handleSavePost = () => {
-  //   const { id, savePost } = this.props;
-  //   const { titleInput, bodyInput } = this.state;
-  //   savePost(id, { title: titleInput, body: bodyInput });
-  //   this.toggleEditMode();
-  // }
+  handleSaveComment = (body) => {
+    const { id, saveComment } = this.props;
+    saveComment(id, { edited: Date.now(), body });
+    this.toggleEditMode();
+  }
   /**
    * Toggles the post edit mode and clears all inputs
    */
   toggleEditMode = () => {
-    const { title, body } = this.props;
-    this.setState(({ isEditMode }) => (
-      { isEditMode: !isEditMode,
-        titleInput: title,
-        bodyInput: body
-      }
-    ));
+    this.setState(({ isEditMode }) => ({ isEditMode: !isEditMode }));
   }
-  // triggerDeletePost = () => {
-  //   const { id, deletePost } = this.props;
-  //   if (window.confirm('Are you sure you want to delete this post?')) {
-  //     deletePost(id);
-  //   }
-  // }
+  handleRemoveComment = () => {
+    const { id, parentId, deleteComment } = this.props;
+    if (window.confirm('Are you sure you want to delete this comment?')) {
+      deleteComment(id, parentId);
+    }
+  }
   render() {
-    const { isEditMode, bodyInput, titleInput } = this.state;
+    const { isEditMode } = this.state;
     const {
       id,
       body,
+      author,
+      timestamp,
       updateVoteComment,
     } = this.props;
     return (
       <div className="columns is-centered">
-        <div className="column is-one-third">
+        <div className="column comment-block is-one-third">
           <div className="card">
-            {/* <PostHeader
-              isEditMode={isEditMode}
-              toggleEditMode={this.toggleEditMode}
-              handleTitleChange={this.handleTitleChange}
-              titleInput={titleInput}
-              {...this.props} /> */}
-            <div className="card-content">
-              {!isEditMode
-                ? <div>{ body }</div>
-                : (
-                  <div>
-                    <input className="input" type="text" placeholder="Post content" value={bodyInput}
-                    onChange={this.handleBodyChange}/>
-                    {!bodyInput && <p className="help is-danger">Post body is required</p>}
-                    <div className="buttons has-addons is-right">
-                      <span className="button is-small" onClick={this.toggleEditMode}>Cancel</span>
-                      <span className="button is-info is-small" onClick={this.handleSavePost}>Save</span>
-                    </div>
+            <div className="card-content comment-content">
+              <article className="media">
+                <UserAvatar author={author}/>
+                <div className="media-content">
+                  <div className="content">
+                    <p>
+                      <strong>{author}</strong>
+                      <small>{` - ${timestampToDate(timestamp)}`}</small>
+                    </p>
+                    {!isEditMode
+                        ? <p>{ body }</p>
+                        : <CardBody body={body}  handleSave={this.handleSaveComment} />
+                      }
                   </div>
-                )
-              }
+                  <nav className="level is-mobile">
+                    <div className="level-left">
+                      <span className="level-item">
+                        <CardFooter updateVote={updateVoteComment} {...this.props} />
+                      </span>
+                    </div>
+                  </nav>
+                </div>
+                <div className="media-right">
+                  <CardMenuOptions handleDelete={this.handleRemoveComment} toggleEditMode={this.toggleEditMode} id={id} />
+                </div>
+              </article>
             </div>
-            <CardFooter updateVote={updateVoteComment} {...this.props} />
           </div>
         </div>
       </div>
@@ -94,8 +88,14 @@ Comment.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  updateVoteComment: (id, option, numberOfVotes) => {
-    dispatch(fetchVoteComment(id, option, numberOfVotes));
+  updateVoteComment: (id, option, doubleVote) => {
+    dispatch(fetchVoteComment(id, option, doubleVote));
+  },
+  saveComment: (id, details) => {
+    dispatch(handleEditComment(id, details));
+  },
+  deleteComment: (id, parentId) => {
+    dispatch(handleDeleteComment(id, parentId));
   },
 });
 

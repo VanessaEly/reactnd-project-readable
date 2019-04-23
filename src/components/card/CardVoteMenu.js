@@ -17,7 +17,7 @@ class CardVoteMenu extends Component {
     // if there was not vote, simply vote for that option
     if (!currentVote) updateVote(id, option);
     // if we are voting for the opposite option that was selected before, we need to vote two times
-    else if (currentVote !== option) updateVote(id, option, 2);
+    else if (currentVote !== option) updateVote(id, option, true);
     // if the option was already voted, just unvote
     else {
       this.setState({ currentVote: false });

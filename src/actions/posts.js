@@ -58,10 +58,10 @@ const receivePostsByCategory = category => (dispatch) => {
   });
 };
 
-const fetchVotePost = (id, option, numberOfVotes = 1) => (dispatch) => {
+const fetchVotePost = (id, option, doubleVote = false) => (dispatch) => {
   postUpdateVote(id, option).then((details) => {
     dispatch(votePost(details));
-    if (numberOfVotes === 2) {
+    if (doubleVote) {
       postUpdateVote(id, option).then((secondDetails) => {
         dispatch(votePost(secondDetails));
       });
@@ -69,7 +69,7 @@ const fetchVotePost = (id, option, numberOfVotes = 1) => (dispatch) => {
   });
 };
 
-const handleDeletePost = (id) => (dispatch) => {
+const handleRemovePost = (id) => (dispatch) => {
   deletePost(id).then((post) => {
     dispatch(removePost(post));
   });
@@ -86,6 +86,6 @@ export {
   receivePosts,
   receivePostsByCategory,
   fetchVotePost,
-  handleDeletePost,
+  handleRemovePost,
   handleEditPost,
 };

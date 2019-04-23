@@ -8,10 +8,11 @@ import CardVoteMenu from './CardVoteMenu';
  */
 const CardFooter = (props) => {
   const { id, voteScore, commentCount, updateVote } = props;
+  
   return (
     <div className="card-footer media-content">
       <CardVoteMenu id={id} updateVote={updateVote} voteScore={voteScore} />
-      {commentCount
+      {commentCount !== undefined
         && <div className="card-header-icon media-right">
           <span className="icon">
             <i className="far fa-comment-alt" />

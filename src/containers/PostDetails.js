@@ -32,7 +32,7 @@ class PostDetails extends Component {
             }
           </div>
           { comments && commentKeys.length > 0
-            ? commentKeys.map(id => (<Comment key={id} {...comments[id]} />
+            ? commentKeys.map(id => (!comments[id].parentDeleted && <Comment key={id} {...comments[id]} />
               ))
             : <div>No comments found</div>
           }

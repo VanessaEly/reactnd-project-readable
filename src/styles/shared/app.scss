@@ -8,6 +8,18 @@
   font-weight: 400 !important;
 }
 
+.card-header-icon {
+  padding: 0.5rem;
+}
+
+.card .media:not(:last-child) {
+  margin-bottom: 0;
+}
+
+.card-content {
+  padding: 1rem;
+}
+
 @mixin avatar($size) {
   width: $size;
   height: $size;

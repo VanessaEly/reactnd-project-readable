@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PostHeader from './PostHeader';
+import CardBody from '../card/CardBody';
 import CardFooter from '../card/CardFooter';
 import {
   handleEditPost,
-  handleDeletePost,
+  handleRemovePost,
   fetchVotePost,
 } from '../../actions/posts';
 
@@ -16,14 +17,7 @@ class Post extends Component {
     this.state = {
       isEditMode: false,
       titleInput: '',
-      bodyInput: '',
     }
-  }
-  /**
-   * Handles changes on the editMode body input
-   */
-  handleBodyChange = (e) => {
-    this.setState({bodyInput: e.target.value});
   }
   /**
    * Handles changes on the editMode title input
@@ -34,13 +28,13 @@ class Post extends Component {
   /**
    * Handles the savePost method, which is triggered by the editMode 'save' button.
    */
-  handleSavePost = () => {
+  handleSavePost = (body) => {
     const { id, savePost } = this.props;
-    const { titleInput, bodyInput } = this.state;
-    savePost(id, { title: titleInput, body: bodyInput });
+    const { titleInput } = this.state;
+    savePost(id, { title: titleInput, body });
     this.toggleEditMode();
   }
-  triggerDeletePost = () => {
+  handleDeletePost = () => {
     const { id, deletePost } = this.props;
     if (window.confirm('Are you sure you want to delete this post?')) {
       deletePost(id);
@@ -50,16 +44,15 @@ class Post extends Component {
    * Toggles the post edit mode and clears all inputs
    */
   toggleEditMode = () => {
-    const { title, body } = this.props;
+    const { title } = this.props;
     this.setState(({ isEditMode }) => (
       { isEditMode: !isEditMode,
-        titleInput: title,
-        bodyInput: body
+        titleInput: title
       }
     ));
   }
   render() {
-    const { isEditMode, bodyInput, titleInput } = this.state;
+    const { isEditMode, titleInput } = this.state;
     const {
       id,
       body,
@@ -74,21 +67,12 @@ class Post extends Component {
             toggleEditMode={this.toggleEditMode}
             handleTitleChange={this.handleTitleChange}
             titleInput={titleInput}
+            handleDeletePost={this.handleDeletePost}
             {...this.props} />
           <div className="card-content">
             {!isEditMode
               ? <Link to={`/${category}/${id}`}>{body}</Link>
-              : (
-                <div>
-                  <input className="input" type="text" placeholder="Post content" value={bodyInput}
-                  onChange={this.handleBodyChange}/>
-                  {!bodyInput && <p className="help is-danger">Post body is required</p>}
-                  <div className="buttons has-addons is-right">
-                    <span className="button is-small" onClick={this.toggleEditMode}>Cancel</span>
-                    <span className="button is-info is-small" onClick={this.handleSavePost}>Save</span>
-                  </div>
-                </div>
-              )
+              : <CardBody body={body} handleSave={this.handleSavePost} />
             }
           </div>
           <CardFooter updateVote={updateVotePost} {...this.props} />
@@ -108,10 +92,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(handleEditPost(id, details));
   },
   deletePost: (id) => {
-    dispatch(handleDeletePost(id));
+    dispatch(handleRemovePost(id));
   },
-  updateVotePost: (id, option, numberOfVotes) => {
-    dispatch(fetchVotePost(id, option, numberOfVotes));
+  updateVotePost: (id, option, doubleVote) => {
+    dispatch(fetchVotePost(id, option, doubleVote));
   },
 });
 
