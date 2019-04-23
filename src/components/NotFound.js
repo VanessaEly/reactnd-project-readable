@@ -2,12 +2,19 @@ import React from 'react';
 
 /**
  * @constructor NotFound
- * @description Display a page not found message
+ * @description Display a not found message
  */
-const NotFound = () => (
+const NotFound = (props) => (
   <div className="hero-body">
     <div className="container has-text-centered">
-      <p>Not found</p>
+      <div className="columns is-centered">
+        <div className="card column is-half">
+          <div className="card-content ">
+            <p className="title">Sorry :(</p>
+            <p className="subtitle">{props.subtitle}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 );

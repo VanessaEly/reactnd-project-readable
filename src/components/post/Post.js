@@ -31,8 +31,10 @@ class Post extends Component {
   handleSavePost = (body) => {
     const { id, savePost } = this.props;
     const { titleInput } = this.state;
-    savePost(id, { title: titleInput, body });
-    this.toggleEditMode();
+    if (titleInput.trim().length > 0 && body.trim().length > 0) {
+      savePost(id, { title: titleInput, body });
+      this.toggleEditMode();
+    }
   }
   handleDeletePost = () => {
     const { id, deletePost } = this.props;
@@ -72,7 +74,7 @@ class Post extends Component {
           <div className="card-content">
             {!isEditMode
               ? <Link to={`/${category}/${id}`}>{body}</Link>
-              : <CardBody body={body} handleSave={this.handleSavePost} />
+              : <CardBody body={body} handleSave={this.handleSavePost} toggleEditMode={this.toggleEditMode} />
             }
           </div>
           <CardFooter updateVote={updateVotePost} {...this.props} />

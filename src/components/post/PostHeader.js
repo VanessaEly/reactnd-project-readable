@@ -38,7 +38,9 @@ const PostHeader = (props) => {
                   value={titleInput}
                   onChange={handleTitleChange}
                 />
-                {!titleInput && <p className="help is-danger">Post title is required</p>}
+                {titleInput.trim().length === 0
+                  && <p className="help is-danger">Title requires at least one character</p>
+                }
               </div>
             )
           }

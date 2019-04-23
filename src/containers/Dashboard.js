@@ -5,7 +5,7 @@ import { receivePosts, receivePostsByCategory } from '../actions/posts';
 // import NewPost from '../components/post/NewPost';
 import Post from '../components/post/Post';
 import Loading from '../components/Loading';
-import PostsNotFound from '../components/post/PostsNotFound';
+import NotFound from '../components/NotFound';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -44,7 +44,8 @@ class Dashboard extends Component {
         <div className="hero-body">
           <div className="container is-fluid">
             <div className="columns is-centered">
-              {posts && Object.keys(posts).length === 0 && <PostsNotFound />}
+              {posts && Object.keys(posts).length === 0
+                && <NotFound subtitle={'No posts were found for this category'}/>}
               {!posts || posts.length
                 ? <Loading />
                 : Object.keys(posts).map(id => <Post key={id} {...posts[id]} />)}

@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { receivePost } from '../actions/posts';
 import { receivePostComments } from '../actions/comments';
 import Post from '../components/post/Post';
+import NotFound from '../components/NotFound';
 import Comment from '../components/comment/Comment';
-import PostsNotFound from '../components/post/PostsNotFound';
 
 class PostDetails extends Component {
   componentDidMount() {
@@ -28,13 +28,11 @@ class PostDetails extends Component {
           <div className="columns is-centered">
             {post
               ? <Post key={post.id} {...post} />
-              : <PostsNotFound />
+              : <NotFound subtitle={'404 - The requested post was not found'}/>
             }
           </div>
           { comments && commentKeys.length > 0
-            ? commentKeys.map(id => (!comments[id].parentDeleted && <Comment key={id} {...comments[id]} />
-              ))
-            : <div>No comments found</div>
+            && commentKeys.map(id => (!comments[id].parentDeleted && <Comment key={id} {...comments[id]} />))
           }
         </div>
       </div>

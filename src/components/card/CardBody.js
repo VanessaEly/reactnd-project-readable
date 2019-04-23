@@ -21,18 +21,20 @@ class CardBody extends Component {
    * Handles changes on the editMode body input
    */
   handleBodyChange = (e) => {
-    this.setState({bodyInput: e.target.value});
+    this.setState({ bodyInput: e.target.value });
   }
   render() {
     const { bodyInput } = this.state;
-    const { handleSave } = this.props;
+    const { handleSave, toggleEditMode } = this.props;
     return (
       <div>
         <input className="input" type="text" placeholder="Post content" value={bodyInput}
         onChange={this.handleBodyChange}/>
-        {!bodyInput && <p className="help is-danger">Post body is required</p>}
+        {bodyInput.trim().length === 0
+          && <p className="help is-danger">Body requires at least one character</p>
+        }
         <div className="buttons has-addons is-right">
-          <span className="button is-small" onClick={this.toggleEditMode}>Cancel</span>
+          <span className="button is-small" onClick={() => toggleEditMode()}>Cancel</span>
           <span className="button is-info is-small" onClick={() => handleSave(bodyInput)}>Save</span>
         </div>
       </div>
@@ -43,6 +45,7 @@ class CardBody extends Component {
 CardBody.propTypes = {
   body: PropTypes.string.isRequired,
   handleSave: PropTypes.func.isRequired,
+  toggleEditMode: PropTypes.func.isRequired,
 };
 
 export default CardBody;

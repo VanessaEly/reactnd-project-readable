@@ -12,12 +12,12 @@ const posts = (state = null, action) => {
     case FETCH_POSTS:
       return action.posts ? { ...state, ...organizeByKey('id', action.posts) } : null;
     case FETCH_POST:
-      return {
+      return action.details.id ? {
         ...state,
         [action.details.id]: {
           ...action.details,
         },
-      };
+      } : null ;
     case EDIT_POST:
     case VOTE_POST:
       return {

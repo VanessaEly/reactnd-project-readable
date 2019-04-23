@@ -21,8 +21,10 @@ class Comment extends Component {
    */
   handleSaveComment = (body) => {
     const { id, saveComment } = this.props;
-    saveComment(id, { edited: Date.now(), body });
-    this.toggleEditMode();
+    if (body.trim().length > 0) {
+      saveComment(id, { edited: Date.now(), body });
+      this.toggleEditMode();
+    }
   }
   /**
    * Toggles the post edit mode and clears all inputs
@@ -60,7 +62,11 @@ class Comment extends Component {
                     </p>
                     {!isEditMode
                         ? <p>{ body }</p>
-                        : <CardBody body={body}  handleSave={this.handleSaveComment} />
+                        : <CardBody
+                          body={body}
+                          handleSave={this.handleSaveComment}
+                          toggleEditMode={this.toggleEditMode}
+                        />
                       }
                   </div>
                   <nav className="level is-mobile">

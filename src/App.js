@@ -24,7 +24,7 @@ class App extends Component {
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/:category" component={Dashboard} />
             <Route exact path="/:category/:post_id" component={PostDetails} />
-            <Route path="*" component={NotFound} />
+            <Route path="*" component={() => <NotFound subtitle={'404 - Page not found'}/>} />
           </Switch>
           <Footer />
         </section>
