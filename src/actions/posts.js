@@ -2,6 +2,7 @@ import {
   FETCH_POSTS,
   FETCH_POST,
   VOTE_POST,
+  ADD_POST,
   REMOVE_POST,
   EDIT_POST,
 } from './types';
@@ -10,6 +11,7 @@ import {
   getPostsByCategory,
   getPost,
   postUpdateVote,
+  addPost,
   deletePost,
   updatePost,
 } from '../utils/api';
@@ -26,6 +28,11 @@ const fetchPost = details => ({
 
 const votePost = details => ({
   type: VOTE_POST,
+  details,
+});
+
+const createPost = details => ({
+  type: ADD_POST,
   details,
 });
 
@@ -68,6 +75,11 @@ const fetchVotePost = (id, option, doubleVote = false) => (dispatch) => {
     }
   });
 };
+const handleAddPost = details => dispatch =>
+  addPost(details).then((post) => {
+    console.log('details', details)
+    dispatch(createPost(post));
+  });
 
 const handleRemovePost = (id) => (dispatch) => {
   deletePost(id).then((post) => {
@@ -86,6 +98,7 @@ export {
   receivePosts,
   receivePostsByCategory,
   fetchVotePost,
+  handleAddPost,
   handleRemovePost,
   handleEditPost,
 };

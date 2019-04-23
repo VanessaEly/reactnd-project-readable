@@ -13,7 +13,9 @@ const UserAvatar = (props) => (
     </div>
   </div>
 );
+
 UserAvatar.propTypes = {
   author: PropTypes.string.isRequired,
 };
+
 export default UserAvatar;

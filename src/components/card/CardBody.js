@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import TextInputField from '../TextInputField';
 
 /**
  * @constructor CardBody
@@ -25,14 +26,11 @@ class CardBody extends Component {
   }
   render() {
     const { bodyInput } = this.state;
-    const { handleSave, toggleEditMode } = this.props;
+    const { handleSave, toggleEditMode, withLabel } = this.props;
+    
     return (
       <div>
-        <input className="input" type="text" placeholder="Post content" value={bodyInput}
-        onChange={this.handleBodyChange}/>
-        {bodyInput.trim().length === 0
-          && <p className="help is-danger">Body requires at least one character</p>
-        }
+        <TextInputField name='Body' withLabel={withLabel} value={bodyInput} handleChange={this.handleBodyChange}/>
         <div className="buttons has-addons is-right">
           <span className="button is-small" onClick={() => toggleEditMode()}>Cancel</span>
           <span className="button is-info is-small" onClick={() => handleSave(bodyInput)}>Save</span>
@@ -42,10 +40,15 @@ class CardBody extends Component {
   }
 };
 
+CardBody.defaultValues = {
+  withLabel: false,
+}
+
 CardBody.propTypes = {
   body: PropTypes.string.isRequired,
   handleSave: PropTypes.func.isRequired,
-  toggleEditMode: PropTypes.func.isRequired,
+  toggleEditMode: PropTypes.func,
+  withLabel: PropTypes.bool,
 };
 
 export default CardBody;

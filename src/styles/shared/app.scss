@@ -1,5 +1,8 @@
 @import './colors.scss';
 
+.no-pointer {
+  cursor: default;
+}
 .progress {
   width: 30%;
 }

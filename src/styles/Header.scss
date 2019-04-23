@@ -29,6 +29,11 @@
     }
   }
 }
+.navbar-item {
+  &.selected {
+    background-color: $dark-green !important;
+  }
+}
 
 .navbar .navbar-center {
   text-align: center;

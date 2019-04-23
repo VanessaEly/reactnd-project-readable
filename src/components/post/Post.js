@@ -61,23 +61,26 @@ class Post extends Component {
       category,
       updateVotePost,
     } = this.props;
+
     return (
-      <div className="column is-half">
-        <div className="card">
-          <PostHeader
-            isEditMode={isEditMode}
-            toggleEditMode={this.toggleEditMode}
-            handleTitleChange={this.handleTitleChange}
-            titleInput={titleInput}
-            handleDeletePost={this.handleDeletePost}
-            {...this.props} />
-          <div className="card-content">
-            {!isEditMode
-              ? <Link to={`/${category}/${id}`}>{body}</Link>
-              : <CardBody body={body} handleSave={this.handleSavePost} toggleEditMode={this.toggleEditMode} />
-            }
+      <div className="columns is-centered">
+        <div className="column is-half">
+          <div className="card">
+            <PostHeader
+              isEditMode={isEditMode}
+              toggleEditMode={this.toggleEditMode}
+              handleTitleChange={this.handleTitleChange}
+              titleInput={titleInput}
+              handleDeletePost={this.handleDeletePost}
+              {...this.props} />
+            <div className="card-content">
+              {!isEditMode
+                ? <Link to={`/${category}/${id}`}>{body}</Link>
+                : <CardBody body={body} handleSave={this.handleSavePost} toggleEditMode={this.toggleEditMode} />
+              }
+            </div>
+            <CardFooter updateVote={updateVotePost} {...this.props} />
           </div>
-          <CardFooter updateVote={updateVotePost} {...this.props} />
         </div>
       </div>
     );

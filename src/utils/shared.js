@@ -11,7 +11,12 @@ export const organizeByKey = (key, array) => array.reduce((acc, curr) => ({
   },
 }), {});
 
-export const getInitials = string => `${
+export const getInitials = string => string ? `${
   string[0]}${
   string[Math.floor(string.length / 2)]
-}${string[string.length - 1]}`.toUpperCase();
+}${string[string.length - 1]}`.toUpperCase() : 'NEW';
+
+export const generateId = () => {
+  return Math.random().toString(36).substring(2) +
+      (new Date()).getTime().toString(36)
+}

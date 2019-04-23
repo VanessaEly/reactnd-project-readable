@@ -49,7 +49,7 @@ const PostHeader = (props) => {
           </p>
         </div>
       </div>
-      <div className="card-header-icon">
+      <div className="card-header-icon no-pointer">
         <span className="tag is-primary">{category}</span>
       </div>
       <div className="card-header-icon">

@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { receivePost } from '../actions/posts';
 import { receivePostComments } from '../actions/comments';
+import Header from '../components/Header';
 import Post from '../components/post/Post';
 import NotFound from '../components/NotFound';
 import Comment from '../components/comment/Comment';
@@ -19,23 +20,24 @@ class PostDetails extends Component {
   }
 
   render() {
-    const { post, comments } = this.props;
+    const { post, comments, match } = this.props;
     const commentKeys = comments ? Object.keys(comments) : null;
 
     return (
-      <div className="hero-body">
-        <div className="container is-fluid">
-          <div className="columns is-centered">
+      <Fragment>
+        <Header match={match}/>
+        <div className="hero-body">
+          <div className="container is-fluid">
             {post
               ? <Post key={post.id} {...post} />
               : <NotFound subtitle={'404 - The requested post was not found'}/>
             }
+            { comments && commentKeys.length > 0
+              && commentKeys.map(id => (!comments[id].parentDeleted && <Comment key={id} {...comments[id]} />))
+            }
           </div>
-          { comments && commentKeys.length > 0
-            && commentKeys.map(id => (!comments[id].parentDeleted && <Comment key={id} {...comments[id]} />))
-          }
         </div>
-      </div>
+      </Fragment>
     );
   }
 }

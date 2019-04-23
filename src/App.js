@@ -3,11 +3,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { receiveCategories } from './actions/categories';
-import Header from './components/Header';
 import Footer from './components/Footer';
 import Dashboard from './containers/Dashboard';
 import PostDetails from './containers/PostDetails';
-import NotFound from './components/NotFound';
+import PageNotFound from './components/PageNotFound';
 
 class App extends Component {
   componentDidMount() {
@@ -19,12 +18,11 @@ class App extends Component {
     return (
       <BrowserRouter>
         <section className="hero is-light is-fullheight">
-          <Header />
           <Switch>
             <Route exact path="/" component={Dashboard} />
             <Route exact path="/:category" component={Dashboard} />
             <Route exact path="/:category/:post_id" component={PostDetails} />
-            <Route path="*" component={() => <NotFound subtitle={'404 - Page not found'}/>} />
+            <Route path="*" component={() => <PageNotFound />} />
           </Switch>
           <Footer />
         </section>

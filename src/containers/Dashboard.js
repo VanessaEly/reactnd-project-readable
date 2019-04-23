@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { receivePosts, receivePostsByCategory } from '../actions/posts';
-// import NewPost from '../components/post/NewPost';
+import Header from '../components/Header';
+import NewPost from '../components/post/NewPost';
 import Post from '../components/post/Post';
 import Loading from '../components/Loading';
 import NotFound from '../components/NotFound';
@@ -35,21 +36,18 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { posts } = this.props;
+    const { posts, match } = this.props;
     return (
       <Fragment>
-        <div className="columns is-centered">
-          {/* <NewPost /> */}
-        </div>
+        <Header match={match}/>
         <div className="hero-body">
           <div className="container is-fluid">
-            <div className="columns is-centered">
-              {posts && Object.keys(posts).length === 0
-                && <NotFound subtitle={'No posts were found for this category'}/>}
-              {!posts || posts.length
-                ? <Loading />
-                : Object.keys(posts).map(id => <Post key={id} {...posts[id]} />)}
-            </div>
+            <NewPost />
+            {posts && Object.keys(posts).length === 0
+              && <NotFound subtitle={'No posts were found for this category'}/>}
+            {!posts || posts.length
+              ? <Loading />
+              : Object.keys(posts).map(id => <Post key={id} {...posts[id]} />)}
           </div>
         </div>
       </Fragment>

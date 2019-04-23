@@ -2,6 +2,7 @@ import {
   FETCH_POSTS,
   FETCH_POST,
   VOTE_POST,
+  ADD_POST,
   REMOVE_POST,
   EDIT_POST,
 } from '../actions/types';
@@ -18,8 +19,11 @@ const posts = (state = null, action) => {
           ...action.details,
         },
       } : null ;
+    case ADD_POST:
     case EDIT_POST:
     case VOTE_POST:
+    console.log('action', action)
+    console.log(action.details)
       return {
         ...state,
         [action.details.id]: {
