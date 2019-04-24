@@ -27,10 +27,10 @@ class CardBody extends Component {
   render() {
     const { bodyInput } = this.state;
     const { handleSave, toggleEditMode, withLabel } = this.props;
-    
+
     return (
-      <div>
-        <TextInputField name='Body' withLabel={withLabel} value={bodyInput} handleChange={this.handleBodyChange}/>
+      <div className="content">
+        <TextInputField name='Message' withLabel={withLabel} value={bodyInput} handleChange={this.handleBodyChange}/>
         <div className="buttons has-addons is-right">
           <span className="button is-small" onClick={() => toggleEditMode()}>Cancel</span>
           <span className="button is-info is-small" onClick={() => handleSave(bodyInput)}>Save</span>
@@ -40,12 +40,13 @@ class CardBody extends Component {
   }
 };
 
-CardBody.defaultValues = {
+CardBody.defaultProps = {
   withLabel: false,
+  body: '',
 }
 
 CardBody.propTypes = {
-  body: PropTypes.string.isRequired,
+  body: PropTypes.string,
   handleSave: PropTypes.func.isRequired,
   toggleEditMode: PropTypes.func,
   withLabel: PropTypes.bool,

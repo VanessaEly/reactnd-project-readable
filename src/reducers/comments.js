@@ -1,5 +1,6 @@
 import {
   FETCH_POST_COMMENTS,
+  ADD_COMMENT,
   EDIT_COMMENT,
   VOTE_COMMENT,
   REMOVE_COMMENT,
@@ -10,6 +11,7 @@ const comments = (state = null, action) => {
   switch (action.type) {
     case FETCH_POST_COMMENTS:
       return { ...organizeByKey('id', action.comments) };
+    case ADD_COMMENT:
     case EDIT_COMMENT:
     case VOTE_COMMENT:
       return {

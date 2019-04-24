@@ -77,7 +77,6 @@ const fetchVotePost = (id, option, doubleVote = false) => (dispatch) => {
 };
 const handleAddPost = details => dispatch =>
   addPost(details).then((post) => {
-    console.log('details', details)
     dispatch(createPost(post));
   });
 

@@ -69,13 +69,7 @@ class Comment extends Component {
                         />
                       }
                   </div>
-                  <nav className="level is-mobile">
-                    <div className="level-left">
-                      <span className="level-item">
-                        <CardFooter updateVote={updateVoteComment} {...this.props} />
-                      </span>
-                    </div>
-                  </nav>
+                  <CardFooter updateVote={updateVoteComment} {...this.props} />
                 </div>
                 <div className="media-right">
                   <CardMenuOptions handleDelete={this.handleRemoveComment} toggleEditMode={this.toggleEditMode} id={id} />

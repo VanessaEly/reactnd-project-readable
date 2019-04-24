@@ -7,6 +7,7 @@ import Header from '../components/Header';
 import Post from '../components/post/Post';
 import NotFound from '../components/NotFound';
 import Comment from '../components/comment/Comment';
+import NewComment from '../components/comment/NewComment';
 
 class PostDetails extends Component {
   componentDidMount() {
@@ -29,7 +30,12 @@ class PostDetails extends Component {
         <div className="hero-body">
           <div className="container is-fluid">
             {post
-              ? <Post key={post.id} {...post} />
+              ? (
+                <Fragment>
+                  <Post key={post.id} {...post} />
+                  <NewComment parentId={post.id} />
+                </Fragment>
+              )
               : <NotFound subtitle={'404 - The requested post was not found'}/>
             }
             { comments && commentKeys.length > 0

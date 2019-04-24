@@ -1,5 +1,6 @@
 import {
   FETCH_POST_COMMENTS,
+  ADD_COMMENT,
   EDIT_COMMENT,
   REMOVE_COMMENT,
   VOTE_COMMENT,
@@ -9,6 +10,7 @@ import {
   commentUpdateVote,
   updateComment,
   deleteComment,
+  addComment,
 } from '../utils/api';
 
 import { receivePost } from './posts';
@@ -16,6 +18,11 @@ import { receivePost } from './posts';
 const fetchPostComments = comments => ({
   type: FETCH_POST_COMMENTS,
   comments,
+});
+
+const createComment = details => ({
+  type: ADD_COMMENT,
+  details,
 });
 
 const editComment = details => ({
@@ -36,6 +43,13 @@ const voteComment = details => ({
 const receivePostComments = id => dispatch =>
   getPostComments(id).then((comments) => {
     dispatch(fetchPostComments(comments));
+  });
+
+const handleAddComment = (details) => dispatch =>
+  addComment(details).then((comment) => {
+    dispatch(createComment(comment));
+  }).then(() => {
+    dispatch(receivePost(details.parentId));
   });
 
 const handleEditComment = (id, details) => dispatch =>
@@ -66,8 +80,9 @@ const fetchVoteComment = (id, option, doubleVote = false) => (dispatch) => {
 
 export {
   receivePostComments,
-  fetchVoteComment,
+  handleAddComment,
   handleEditComment,
   handleDeleteComment,
+  fetchVoteComment,
 };
   

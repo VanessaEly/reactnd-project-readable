@@ -34,7 +34,7 @@ const TextInputField = (props) => (
   </Fragment>
 );
 
-TextInputField.defaultValues = {
+TextInputField.defaultProps = {
   withLabel: false,
 }
 TextInputField.propTypes = {

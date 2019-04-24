@@ -67,7 +67,7 @@ class NewPost extends Component {
       category,
     } = this.state;
     const { categories } = this.props;
-    
+
     return (
       <div className="columns is-centered">
         <div className="column is-half is-centered">
@@ -105,7 +105,6 @@ class NewPost extends Component {
                 }
                 <TextInputField name='Author' withLabel={true} value={author} handleChange={this.handleChange} />
                 <CardBody
-                  body={''}
                   withLabel={true}
                   handleSave={this.handleSavePost}
                   toggleEditMode={this.toggleEditMode}
