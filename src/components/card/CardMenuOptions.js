@@ -22,13 +22,13 @@ class CardMenuOptions extends Component {
               onClick={() => toggleEditMode()}
               role="presentation"
             >
-              <p>Edit</p>
+              Edit
             </div>
             <div
               className="dropdown-item"
               onClick={() => handleDelete()}
             >
-              <p>Delete</p>
+              Delete
             </div>
           </div>
         </div>

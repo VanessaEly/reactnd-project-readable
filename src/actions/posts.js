@@ -1,6 +1,7 @@
 import {
   FETCH_POSTS,
   FETCH_POST,
+  SORT_POSTS,
   VOTE_POST,
   ADD_POST,
   REMOVE_POST,
@@ -16,14 +17,21 @@ import {
   updatePost,
 } from '../utils/api';
 
-const fetchPosts = posts => ({
+const fetchPosts = (posts, sort) => ({
   type: FETCH_POSTS,
   posts,
+  sort,
 });
 
 const fetchPost = details => ({
   type: FETCH_POST,
   details,
+});
+
+const sortPosts = (posts, sort) => ({
+  type: SORT_POSTS,
+  posts,
+  sort
 });
 
 const votePost = details => ({
@@ -51,18 +59,22 @@ const receivePost = id => dispatch => getPost(id)
     dispatch(fetchPost(details));
   });
 
-const receivePosts = () => (dispatch) => {
+const receivePosts = (sort) => (dispatch) => {
   dispatch(fetchPosts());
   getPosts().then((posts) => {
-    dispatch(fetchPosts(posts));
+    dispatch(fetchPosts(posts, sort));
   });
 };
 
-const receivePostsByCategory = category => (dispatch) => {
+const receivePostsByCategory = (category, sort) => (dispatch) => {
   dispatch(fetchPosts());
   getPostsByCategory(category).then((posts) => {
-    dispatch(fetchPosts(posts));
+    dispatch(fetchPosts(posts, sort));
   });
+};
+
+const handleSortPosts = (posts, sort) => (dispatch) => {
+  dispatch(sortPosts(posts, sort));
 };
 
 const fetchVotePost = (id, option, doubleVote = false) => (dispatch) => {
@@ -96,6 +108,7 @@ export {
   receivePost,
   receivePosts,
   receivePostsByCategory,
+  handleSortPosts,
   fetchVotePost,
   handleAddPost,
   handleRemovePost,

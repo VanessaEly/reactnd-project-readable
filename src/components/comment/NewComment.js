@@ -54,7 +54,7 @@ class NewComment extends Component {
     const { isEditMode, author } = this.state;
     return (
       <div className="columns is-centered">
-        <div className="column comment-block is-one-third">
+        <div className="column comment-block is-half">
           <div className="card">
             <header className="card-header" onClick={() => this.toggleEditMode(true)}>
               <div className="media card-header-title">

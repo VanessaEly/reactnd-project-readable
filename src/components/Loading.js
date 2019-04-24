@@ -5,7 +5,9 @@ import React from 'react';
  * @description Creates the application loading
  */
 const Loading = () => (
-  <progress className="progress is-small is-primary" />
+  <div className="columns is-centered">
+    <progress className="progress is-small is-primary" />
+  </div>
 );
 
 export default Loading;

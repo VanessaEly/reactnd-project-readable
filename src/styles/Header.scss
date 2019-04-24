@@ -13,6 +13,7 @@
         padding-left: 1rem;
       }
     }
+    
   }
   .navbar-menu.is-active {
     color: black;
@@ -26,6 +27,10 @@
   .navbar-item {
     &:hover {
       background-color: $light-gray !important;
+    }
+    &.selected {
+      background-color: $gray !important;
+      color:  #fff !important;
     }
   }
 }

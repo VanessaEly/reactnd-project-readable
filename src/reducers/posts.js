@@ -1,17 +1,20 @@
 import {
   FETCH_POSTS,
   FETCH_POST,
+  SORT_POSTS,
   VOTE_POST,
   ADD_POST,
   REMOVE_POST,
   EDIT_POST,
 } from '../actions/types';
-import { organizeByKey } from '../utils/shared';
+import { sortList } from '../utils/shared';
 
 const posts = (state = null, action) => {
   switch (action.type) {
     case FETCH_POSTS:
-      return action.posts ? { ...state, ...organizeByKey('id', action.posts) } : null;
+      return action.posts ? { ...state, ...sortList(action.posts, action.sort) } : null;
+    case SORT_POSTS:
+      return { ...sortList(action.posts, action.sort) };
     case FETCH_POST:
       return action.details.id ? {
         ...state,
@@ -22,8 +25,6 @@ const posts = (state = null, action) => {
     case ADD_POST:
     case EDIT_POST:
     case VOTE_POST:
-    console.log('action', action)
-    console.log(action.details)
       return {
         ...state,
         [action.details.id]: {

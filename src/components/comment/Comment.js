@@ -49,7 +49,7 @@ class Comment extends Component {
     } = this.props;
     return (
       <div className="columns is-centered">
-        <div className="column comment-block is-one-third">
+        <div className="column comment-block is-half">
           <div className="card">
             <div className="card-content comment-content">
               <article className="media">

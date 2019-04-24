@@ -64,7 +64,7 @@ class Post extends Component {
 
     return (
       <div className="columns is-centered">
-        <div className="column is-half">
+        <div className="column is-two-thirds">
           <div className="card">
             <PostHeader
               isEditMode={isEditMode}

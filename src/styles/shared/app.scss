@@ -1,18 +1,49 @@
 @import './colors.scss';
 
+.field-label {
+  -webkit-flex-grow: 0;
+  flex-grow: 0;
+  padding-left: 1rem;
+}
+.dropdown {
+  padding: 0 1.2rem 0 1.2rem;
+}
+.dropdown-item {
+  &:hover {
+    background-color: $lighter-gray;
+    color: #0a0a0a;
+  }
+  &.is-active {
+    background-color: $light-green;
+    color: #fff;
+  }
+}
+
 .no-pointer {
   cursor: default;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
 .progress {
   width: 30%;
 }
 
 .help {
   font-weight: 400 !important;
+  &.is-danger {
+    color: #ff3860 !important;
+}
 }
 
+.card-header {
+  background-color: #43aa8b14;
+}
 .card-header-icon {
   padding: 0.5rem;
+  color: $dark-green;
 }
 
 .card .media:not(:last-child) {
@@ -23,10 +54,15 @@
   padding: 1rem;
 }
 
+
+.tag:not(body).is-primary {
+  background-color: $light-green;
+}
+
 @mixin avatar($size) {
   width: $size;
   height: $size;
-  background-color: $dark-green;
+  background-color: $light-green;
   text-align: center;
   border-radius: 50%;
   -webkit-border-radius: 50%;

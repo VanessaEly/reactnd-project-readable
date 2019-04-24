@@ -75,17 +75,19 @@ class NewPost extends Component {
             <header className="card-header" onClick={() => this.toggleEditMode(true)}>
               <div className="media card-header-title">
                 <UserAvatar author={author}/>
-                <input
-                    className="input"
-                    type="text"
-                    placeholder="Add a new post"
-                    value={title}
-                    name="title"
-                    onChange={this.handleChange}
-                  />
-                {isEditMode && title.trim().length === 0
-                  && <p className="help is-danger">Title requires at least one character</p>
-                }
+                <div className="media-content">
+                  <input
+                      className="input"
+                      type="text"
+                      placeholder="Add a new post"
+                      value={title}
+                      name="title"
+                      onChange={this.handleChange}
+                    />
+                  {isEditMode && title.trim().length === 0
+                    && <p className="subtitle is-7 help is-danger">Title requires at least one character</p>
+                  }
+                </div>
               </div>
             </header>
             {isEditMode
@@ -94,7 +96,7 @@ class NewPost extends Component {
                   {Object.keys(categories).map((id) =>(
                     <span
                       key={id}
-                      className={`tag ${categories[id].name === category ? 'is-primary' : 'is-light'}`}
+                      className={`tag pointer ${categories[id].name === category ? 'is-primary' : 'is-light'}`}
                       onClick={() => this.selectCategory(categories[id].name)}>
                       {categories[id].name}
                     </span>
