@@ -18,27 +18,27 @@ const CardMenuOptions = (props) => {
       </div>
       <div className="dropdown-menu" id="dropdown-menu4" role="menu">
         <div className="dropdown-content">
-          <div
+          <span
             className="dropdown-item"
             onClick={() => toggleEditMode()}
             role="presentation"
           >
-            Edit
-          </div>
+            <span>Edit</span>
+          </span>
           <div
             className="dropdown-item"
             onClick={() => handleDelete()}
+            role="presentation"
           >
-            Delete
+            <span>Delete</span>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 CardMenuOptions.propTypes = {
-  id: PropTypes.string.isRequired,
   toggleEditMode: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
 };

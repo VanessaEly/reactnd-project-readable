@@ -40,32 +40,30 @@ const voteComment = details => ({
   details,
 });
 
-const receivePostComments = id => dispatch =>
-  getPostComments(id).then((comments) => {
+const receivePostComments = id => dispatch => getPostComments(id)
+  .then((comments) => {
     dispatch(fetchPostComments(comments));
   });
 
-const handleAddComment = (details) => dispatch =>
-  addComment(details).then((comment) => {
+const handleAddComment = details => dispatch => addComment(details)
+  .then((comment) => {
     dispatch(createComment(comment));
   }).then(() => {
     dispatch(receivePost(details.parentId));
   });
 
-const handleEditComment = (id, details) => dispatch =>
-  updateComment(id, details)
-    .then((comment) => {
-      dispatch(editComment(comment));
-    });
+const handleEditComment = (id, details) => dispatch => updateComment(id, details)
+  .then((comment) => {
+    dispatch(editComment(comment));
+  });
 
-const handleDeleteComment = (id, parentId) => dispatch =>
-  deleteComment(id)
-    .then((comment) => {
-      dispatch(removeComment(comment));
-    })
-    .then(() => {
-      dispatch(receivePost(parentId));
-    });
+const handleDeleteComment = (id, parentId) => dispatch => deleteComment(id)
+  .then((comment) => {
+    dispatch(removeComment(comment));
+  })
+  .then(() => {
+    dispatch(receivePost(parentId));
+  });
 
 const fetchVoteComment = (id, option, doubleVote = false) => (dispatch) => {
   commentUpdateVote(id, option).then((details) => {
@@ -85,4 +83,3 @@ export {
   handleDeleteComment,
   fetchVoteComment,
 };
-  

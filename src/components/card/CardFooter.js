@@ -7,13 +7,19 @@ import CardVoteMenu from './CardVoteMenu';
  * Creates the footer part of cards
  */
 const CardFooter = (props) => {
-  const { id, category, voteScore, commentCount, updateVote } = props;
+  const {
+    id,
+    category,
+    voteScore,
+    commentCount,
+    updateVote,
+  } = props;
 
   return (
     <div className="card-footer media-content">
       <CardVoteMenu id={id} updateVote={updateVote} voteScore={voteScore} />
-      {commentCount !== undefined
-        && <Link to={`/${category}/${id}`}>
+      {commentCount !== undefined && (
+        <Link to={`/${category}/${id}`}>
           <div className="card-header-icon media-right">
             <span className="icon">
               <i className="far fa-comment-alt" />
@@ -21,9 +27,14 @@ const CardFooter = (props) => {
             {`${commentCount} comments`}
           </div>
         </Link>
-      }
+      )}
     </div>
   );
+};
+
+CardFooter.defaultProps = {
+  commentCount: undefined,
+  category: '',
 };
 
 CardFooter.propTypes = {
@@ -31,6 +42,7 @@ CardFooter.propTypes = {
   category: PropTypes.string,
   voteScore: PropTypes.number.isRequired,
   commentCount: PropTypes.number,
+  updateVote: PropTypes.func.isRequired,
 };
 
 export default CardFooter;

@@ -11,13 +11,14 @@ class CardVoteMenu extends Component {
       currentVote: false,
     };
   }
+
   /**
    * Function used to handle up and down votes that were pressed by the user. This calls the
    * 'updateVote' function that was received as props, allowing it to be used by both
    * posts and comments.
    * @param {string} option - Which vote option was pressed, could be 'upVote' or 'downVote'
    */
-  handleVote(option) {
+  handleVote = (option) => {
     const { id, updateVote } = this.props;
     const { currentVote } = this.state;
     this.setState({ currentVote: option });
@@ -32,6 +33,7 @@ class CardVoteMenu extends Component {
       updateVote(id, oppositeOption);
     }
   }
+
   render() {
     const { voteScore } = this.props;
     const { currentVote } = this.state;

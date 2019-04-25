@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CardBody from '../card/CardBody';
 import CardFooter from '../card/CardFooter';
-import { handleEditComment, handleDeleteComment } from '../../actions/comments';
-import { fetchVoteComment } from '../../actions/comments';
+import { handleEditComment, handleDeleteComment, fetchVoteComment } from '../../actions/comments';
 import CardMenuOptions from '../card/CardMenuOptions';
 import { timestampToDate } from '../../utils/shared';
 import UserAvatar from '../UserAvatar';
@@ -17,8 +16,9 @@ class Comment extends Component {
     super(props);
     this.state = {
       isEditMode: false,
-    }
+    };
   }
+
   /**
    * Function triggered by the 'save' button.
    * Checks if body content was filled, and then submits the save.
@@ -31,6 +31,7 @@ class Comment extends Component {
       this.toggleEditMode();
     }
   }
+
   /**
    * Function triggered by the card menu 'delete' option.
    * Asks if the user is sure, and then removes the comment.
@@ -41,12 +42,14 @@ class Comment extends Component {
       deleteComment(id, parentId);
     }
   }
+
   /**
    * Toggles the comment edit mode and clears all inputs
    */
   toggleEditMode = () => {
     this.setState(({ isEditMode }) => ({ isEditMode: !isEditMode }));
   }
+
   render() {
     const { isEditMode } = this.state;
     const {
@@ -63,7 +66,7 @@ class Comment extends Component {
           <div className="card">
             <div className="card-content comment-content">
               <article className="media">
-                <UserAvatar author={author}/>
+                <UserAvatar author={author} />
                 <div className="media-content">
                   <div className="content">
                     <p>
@@ -72,17 +75,23 @@ class Comment extends Component {
                     </p>
                     {!isEditMode
                       ? <p>{ body }</p>
-                      : <CardBody
-                        body={body}
-                        handleSave={this.handleSaveComment}
-                        toggleEditMode={this.toggleEditMode}
-                      />
+                      : (
+                        <CardBody
+                          body={body}
+                          handleSave={this.handleSaveComment}
+                          toggleEditMode={this.toggleEditMode}
+                        />
+                      )
                     }
                   </div>
                   <CardFooter updateVote={updateVoteComment} {...this.props} />
                 </div>
                 <div className="media-right">
-                  <CardMenuOptions handleDelete={this.handleRemoveComment} toggleEditMode={this.toggleEditMode} id={id} />
+                  <CardMenuOptions
+                    handleDelete={this.handleRemoveComment}
+                    toggleEditMode={this.toggleEditMode}
+                    id={id}
+                  />
                 </div>
               </article>
             </div>
@@ -94,7 +103,14 @@ class Comment extends Component {
 }
 
 Comment.propTypes = {
+  id: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  timestamp: PropTypes.number.isRequired,
+  parentId: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
+  updateVoteComment: PropTypes.func.isRequired,
+  saveComment: PropTypes.func.isRequired,
+  deleteComment: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

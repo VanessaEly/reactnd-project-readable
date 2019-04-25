@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 /**
  * Creates the application header
@@ -11,14 +12,16 @@ class Navbar extends Component {
     super(props);
     this.state = {
       navToggled: false,
-    }
+    };
   }
+
   /**
    * Toggles the burger dropdown menu (only visible on mobile version)
    */
-  toggleBurgerMenu() {
+  toggleBurgerMenu = () => {
     this.setState(prevState => ({ navToggled: !prevState.navToggled }));
   }
+
   render() {
     const { navToggled } = this.state;
     const { loading, categories, match } = this.props;
@@ -30,7 +33,7 @@ class Navbar extends Component {
         <nav className="navbar">
           <div className="container">
             <div className="navbar-brand ">
-              <Link className="navbar-item" to='/'>
+              <Link className="navbar-item" to="/">
                 <span className="icon is-medium">
                   <i className="fas fa-comment-dots fa-2x" />
                 </span>
@@ -39,21 +42,24 @@ class Navbar extends Component {
               <span
                 className={`navbar-burger burger ${isToggled}`}
                 data-target="navbarMenuHeroB"
-                onClick={() => this.toggleBurgerMenu()}>
-                <span></span>
-                <span></span>
-                <span></span>
+                onClick={() => this.toggleBurgerMenu()}
+                role="presentation"
+              >
+                <span />
+                <span />
+                <span />
               </span>
             </div>
             <div id="navbarMenuHeroB" className={`navbar-menu ${isToggled}`}>
               <div className="navbar-center">
-                {!loading &&
-                  Object.keys(categories).map((id) => (
+                {!loading
+                  && Object.keys(categories).map(id => (
                     <Link
                       className={`navbar-item ${categories[id].name === category ? 'selected' : ''}`}
                       to={`/${categories[id].path}`}
-                      key={categories[id].name}>
-                        {categories[id].name}
+                      key={categories[id].name}
+                    >
+                      {categories[id].name}
                     </Link>
                   ))}
               </div>
@@ -63,13 +69,30 @@ class Navbar extends Component {
       </div>
     );
   }
+}
+
+Navbar.defaultProps = {
+  loading: null,
+  categories: null,
 };
 
-function mapStateToProps ({ categories}) {
-  return {
-    loading: categories === null,
-    categories,
-  }
+Navbar.propTypes = {
+  categories: PropTypes.shape({}),
+  loading: PropTypes.bool,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      post_id: PropTypes.string,
+    }),
+  }),
 };
+
+Navbar.defaultProps = {
+  match: null,
+};
+
+const mapStateToProps = ({ categories }) => ({
+  loading: categories === null,
+  categories,
+});
 
 export default connect(mapStateToProps)(Navbar);

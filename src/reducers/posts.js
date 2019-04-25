@@ -21,7 +21,7 @@ const posts = (state = null, action) => {
         [action.details.id]: {
           ...action.details,
         },
-      } : null ;
+      } : null;
     case ADD_POST:
     case EDIT_POST:
     case VOTE_POST:
@@ -32,13 +32,13 @@ const posts = (state = null, action) => {
         },
       };
     case REMOVE_POST: {
-      const posts = Object.assign({}, state);
-      delete posts[action.details.id];
-      return posts
+      const postList = Object.assign({}, state);
+      delete postList[action.details.id];
+      return postList;
     }
     default:
       return state;
   }
-}
+};
 
 export default posts;

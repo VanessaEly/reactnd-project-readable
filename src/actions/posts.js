@@ -31,7 +31,7 @@ const fetchPost = details => ({
 const sortPosts = (posts, sort) => ({
   type: SORT_POSTS,
   posts,
-  sort
+  sort,
 });
 
 const votePost = details => ({
@@ -59,7 +59,7 @@ const receivePost = id => dispatch => getPost(id)
     dispatch(fetchPost(details));
   });
 
-const receivePosts = (sort) => (dispatch) => {
+const receivePosts = sort => (dispatch) => {
   dispatch(fetchPosts());
   getPosts().then((posts) => {
     dispatch(fetchPosts(posts, sort));
@@ -87,12 +87,12 @@ const fetchVotePost = (id, option, doubleVote = false) => (dispatch) => {
     }
   });
 };
-const handleAddPost = details => dispatch =>
-  addPost(details).then((post) => {
+const handleAddPost = details => dispatch => addPost(details)
+  .then((post) => {
     dispatch(createPost(post));
   });
 
-const handleRemovePost = (id) => (dispatch) => {
+const handleRemovePost = id => (dispatch) => {
   deletePost(id).then((post) => {
     dispatch(removePost(post));
   });

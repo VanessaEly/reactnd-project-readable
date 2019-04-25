@@ -13,14 +13,13 @@ const Sort = (props) => {
       <div className="column is-half">
         <div className="card">
           <header className="card-header">
-            <div className="media card-header-title is-centered">
-              Sort
-            </div>
+            <div className="media card-header-title is-centered">Sort</div>
           </header>
           <div className="card-content">
             <PostSort
               currentSort={currentSort}
-              sortChange={sortChange} />
+              sortChange={sortChange}
+            />
           </div>
         </div>
       </div>

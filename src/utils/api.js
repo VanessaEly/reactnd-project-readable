@@ -30,7 +30,7 @@ const getPost = id => fetch(`${API}/posts/${id}`, { headers })
 const getPostsByCategory = category => fetch(`${API}/${category}/posts`, { headers })
   .then(res => res.json());
 
-const addPost = (post) => fetch(`${API}/posts`, {
+const addPost = post => fetch(`${API}/posts`, {
   method: 'POST',
   headers,
   body: JSON.stringify(post),
@@ -54,19 +54,19 @@ const postUpdateVote = (id, option) => fetch(`${API}/posts/${id}`, {
 }).then(res => res.json());
 
 // Comment
-const getPostComments = (id) => fetch(`${API}/posts/${id}/comments`, { headers })
-  .then(res => res.json())
+const getPostComments = id => fetch(`${API}/posts/${id}/comments`, { headers })
+  .then(res => res.json());
 
-const getComments = (id) => fetch(`${API}/comments/${id}`, { headers })
-  .then(res => res.json())
+const getComments = id => fetch(`${API}/comments/${id}`, { headers })
+  .then(res => res.json());
 
-const addComment = (comment) => fetch(`${API}/comments`, {
+const addComment = comment => fetch(`${API}/comments`, {
   method: 'POST',
   headers,
   body: JSON.stringify(comment),
 }).then(res => res.json());
 
-const deleteComment = (id) => fetch(`${API}/comments/${id}`, {
+const deleteComment = id => fetch(`${API}/comments/${id}`, {
   method: 'DELETE',
   headers,
 }).then(res => res.json());

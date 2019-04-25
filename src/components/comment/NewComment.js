@@ -16,8 +16,9 @@ class NewComment extends Component {
     this.state = {
       isEditMode: false,
       author: '',
-    }
+    };
   }
+
   /**
    * Triggered by the 'save' button.
    * Checks if body and author are filled and handles comment saves.
@@ -26,7 +27,7 @@ class NewComment extends Component {
   handleSaveComment = (body) => {
     const { addComment, parentId } = this.props;
     const { author } = this.state;
-    
+
     if (author.trim().length > 0 && body.trim().length > 0) {
       const newPost = {
         id: generateId(),
@@ -39,6 +40,7 @@ class NewComment extends Component {
       this.toggleEditMode();
     }
   }
+
   /**
    * Toggles the comment edit mode and clears all inputs
    * @param {bool} mode - boolean, if passed, sets the edit mode to the value that was passed, else,
@@ -46,16 +48,18 @@ class NewComment extends Component {
    */
   toggleEditMode = (mode) => {
     this.setState(({ isEditMode }) => ({
-      isEditMode: mode ? mode : !isEditMode,
+      isEditMode: mode || !isEditMode,
       author: '',
     }));
   }
+
   /**
    * Handles changes on the inputs.
    */
   handleChange = (e) => {
-    this.setState({[e.target.name.toLowerCase()]: e.target.value});
+    this.setState({ [e.target.name.toLowerCase()]: e.target.value });
   }
+
   render() {
     const { isEditMode, author } = this.state;
 
@@ -63,25 +67,31 @@ class NewComment extends Component {
       <div className="columns is-centered">
         <div className="column comment-block is-half">
           <div className="card">
-            <header className="card-header" onClick={() => this.toggleEditMode(true)}>
+            <span
+              className="card-header pointer"
+              onClick={() => this.toggleEditMode(true)}
+              role="presentation"
+            >
               <div className="media card-header-title">
-                <UserAvatar author={author}/>
+                <UserAvatar author={author} />
                 <p>Add a new comment</p>
               </div>
-            </header>
+            </span>
             {isEditMode
-              && <div className="card-content comment-content">
-                <TextInputField
-                  name='Author'
-                  withLabel={true}
-                  value={author}
-                  handleChange={this.handleChange}
-                />
-                <CardBody
-                  handleSave={this.handleSaveComment}
-                  toggleEditMode={this.toggleEditMode}
-                />
-              </div>
+              && (
+                <div className="card-content comment-content">
+                  <TextInputField
+                    name="Author"
+                    withLabel
+                    value={author}
+                    handleChange={this.handleChange}
+                  />
+                  <CardBody
+                    handleSave={this.handleSaveComment}
+                    toggleEditMode={this.toggleEditMode}
+                  />
+                </div>
+              )
             }
           </div>
         </div>
@@ -92,6 +102,7 @@ class NewComment extends Component {
 
 NewComment.propTypes = {
   parentId: PropTypes.string.isRequired,
+  addComment: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

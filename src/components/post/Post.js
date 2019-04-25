@@ -20,15 +20,17 @@ class Post extends Component {
     this.state = {
       isEditMode: false,
       titleInput: '',
-    }
+    };
   }
+
   /**
    * Handles changes on the editMode title input
    * @param {Object} e - Event that triggered this function
    */
   handleTitleChange = (e) => {
-    this.setState({titleInput: e.target.value});
+    this.setState({ titleInput: e.target.value });
   }
+
   /**
    * Triggered by the 'save' button.
    * Checks if title and body fields are filled and handles post saves.
@@ -42,6 +44,7 @@ class Post extends Component {
       this.toggleEditMode();
     }
   }
+
   /**
    * Function triggered by the card menu 'delete' option.
    * Asks if the user is sure, and then removes the post.
@@ -52,17 +55,18 @@ class Post extends Component {
       deletePost(id);
     }
   }
+
   /**
    * Toggles the post edit mode and clears all inputs
    */
   toggleEditMode = () => {
     const { title } = this.props;
-    this.setState(({ isEditMode }) => (
-      { isEditMode: !isEditMode,
-        titleInput: title
-      }
-    ));
+    this.setState(({ isEditMode }) => ({
+      isEditMode: !isEditMode,
+      titleInput: title,
+    }));
   }
+
   render() {
     const { isEditMode, titleInput } = this.state;
     const {
@@ -82,11 +86,18 @@ class Post extends Component {
               handleTitleChange={this.handleTitleChange}
               titleInput={titleInput}
               handleDeletePost={this.handleDeletePost}
-              {...this.props} />
+              {...this.props}
+            />
             <div className="card-content">
               {!isEditMode
                 ? <Link to={`/${category}/${id}`}>{body}</Link>
-                : <CardBody body={body} handleSave={this.handleSavePost} toggleEditMode={this.toggleEditMode} />
+                : (
+                  <CardBody
+                    body={body}
+                    handleSave={this.handleSavePost}
+                    toggleEditMode={this.toggleEditMode}
+                  />
+                )
               }
             </div>
             <CardFooter updateVote={updateVotePost} {...this.props} />
@@ -98,8 +109,13 @@ class Post extends Component {
 }
 
 Post.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  savePost: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
+  updateVotePost: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({

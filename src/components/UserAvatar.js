@@ -1,17 +1,21 @@
 import React from 'react';
-import { getInitials } from '../utils/shared';
 import PropTypes from 'prop-types';
+import { getInitials } from '../utils/shared';
 
 /**
  * Displays the user avatar and gets his initials
  */
-const UserAvatar = (props) => (
-  <div className="media-left">
-    <div className="avatar-circle-sm">
-      <span className="initials">{getInitials(props.author)}</span>
+const UserAvatar = (props) => {
+  const { author } = props;
+
+  return (
+    <div className="media-left">
+      <div className="avatar-circle-sm">
+        <span className="initials">{getInitials(author)}</span>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 UserAvatar.propTypes = {
   author: PropTypes.string.isRequired,

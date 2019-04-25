@@ -4,38 +4,48 @@ import PropTypes from 'prop-types';
 /**
  * Displays a text input field
  */
-const TextInputField = (props) => (
-  <Fragment>
-    <div className="field is-horizontal">
-      {props.withLabel 
-        && <div className="field-label is-normal">
-          <label className="label">{props.name}</label>
-        </div>
-      }
-      <div className="field-body">
-        <div className="field">
-          <p className="control">
-            <input
-              className="input"
-              type="text"
-              name={props.name}
-              placeholder={`Insert the ${props.name}`}
-              value={props.value}
-              onChange={props.handleChange}
-            />
-          </p>
-          {props.value.trim().length === 0
-            && <p className="help is-danger">{props.name} requires at least one character</p>
-          }
+const TextInputField = (props) => {
+  const {
+    withLabel,
+    name,
+    value,
+    handleChange,
+  } = props;
+
+  return (
+    <Fragment>
+      <div className="field is-horizontal">
+        {withLabel && (
+          <div className="field-label is-normal">
+            <span className="label">{name}</span>
+          </div>
+        )}
+        <div className="field-body">
+          <div className="field">
+            <p className="control">
+              <input
+                id={name}
+                className="input"
+                type="text"
+                name={name}
+                placeholder={`Insert the ${name}`}
+                value={value}
+                onChange={handleChange}
+              />
+            </p>
+            {value.trim().length === 0
+              && <p className="help is-danger">{`${name} requires at least one character`}</p>
+            }
+          </div>
         </div>
       </div>
-    </div>
-  </Fragment>
-);
+    </Fragment>
+  );
+};
 
 TextInputField.defaultProps = {
   withLabel: false,
-}
+};
 
 TextInputField.propTypes = {
   value: PropTypes.string.isRequired,

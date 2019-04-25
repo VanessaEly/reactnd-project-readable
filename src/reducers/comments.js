@@ -10,15 +10,16 @@ import { sortList } from '../utils/shared';
 const comments = (state = null, action) => {
   switch (action.type) {
     case FETCH_POST_COMMENTS:
-      return { ...sortList(action.comments, { field:'timestamp', order:'Descending' }) };
-    case ADD_COMMENT:
-      let comments = {
+      return { ...sortList(action.comments, { field: 'timestamp', order: 'Descending' }) };
+    case ADD_COMMENT: {
+      const commentList = {
         ...state,
         [action.details.id]: {
           ...action.details,
         },
-      }
-      return { ...sortList(comments, { field:'timestamp', order:'Descending' }) };
+      };
+      return { ...sortList(commentList, { field: 'timestamp', order: 'Descending' }) };
+    }
     case EDIT_COMMENT:
     case VOTE_COMMENT:
       return {
@@ -28,13 +29,13 @@ const comments = (state = null, action) => {
         },
       };
     case REMOVE_COMMENT: {
-      const comments = Object.assign({}, state);
-      delete comments[action.details.id];
-      return comments
+      const commentList = Object.assign({}, state);
+      delete commentList[action.details.id];
+      return commentList;
     }
     default:
       return state;
   }
-}
+};
 
 export default comments;

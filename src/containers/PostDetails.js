@@ -29,7 +29,7 @@ class PostDetails extends Component {
 
     return (
       <Fragment>
-        <Header match={match}/>
+        <Header match={match} />
         <div className="hero-body">
           <div className="container is-fluid">
             {post
@@ -39,10 +39,12 @@ class PostDetails extends Component {
                   <NewComment parentId={post.id} />
                 </Fragment>
               )
-              : <NotFound subtitle={'404 - The requested post was not found'}/>
+              : <NotFound subtitle="404 - The requested post was not found" />
             }
-            { comments && commentKeys.length > 0
-              && commentKeys.map(id => (!comments[id].parentDeleted && <Comment key={id} {...comments[id]} />))
+            { post && comments && commentKeys.length > 0
+              && commentKeys.map(id => (
+                !comments[id].parentDeleted && <Comment key={id} {...comments[id]} />
+              ))
             }
           </div>
         </div>
@@ -53,8 +55,9 @@ class PostDetails extends Component {
 
 PostDetails.propTypes = {
   post: PropTypes.shape({}),
-  getPostDetails: PropTypes.func,
-  getPostComments: PropTypes.func,
+  comments: PropTypes.shape({}),
+  getPostDetails: PropTypes.func.isRequired,
+  getPostComments: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       post_id: PropTypes.string,
@@ -64,6 +67,8 @@ PostDetails.propTypes = {
 
 PostDetails.defaultProps = {
   post: null,
+  comments: null,
+  match: null,
 };
 
 const mapStateToProps = ({ posts, comments }, props) => {

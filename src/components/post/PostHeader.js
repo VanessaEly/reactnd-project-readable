@@ -21,11 +21,11 @@ const PostHeader = (props) => {
     handleTitleChange,
     handleDeletePost,
   } = props;
-  
+
   return (
     <header className="card-header">
       <div className="media card-header-title">
-        <UserAvatar author={author}/>
+        <UserAvatar author={author} />
         <div className="media-content">
           {!isEditMode
             ? <Link to={`/${category}/${id}`}><p className="title is-6">{title}</p></Link>
@@ -69,6 +69,7 @@ PostHeader.propTypes = {
   isEditMode: PropTypes.bool.isRequired,
   toggleEditMode: PropTypes.func.isRequired,
   handleTitleChange: PropTypes.func.isRequired,
+  handleDeletePost: PropTypes.func.isRequired,
 };
 
 export default PostHeader;
