@@ -7,6 +7,7 @@ import { handleEditComment, handleDeleteComment, fetchVoteComment } from '../../
 import CardMenuOptions from '../card/CardMenuOptions';
 import { timestampToDate } from '../../utils/shared';
 import UserAvatar from '../UserAvatar';
+import Modal from '../Modal';
 
 /**
  * Displays a single comment and handles comment updates
@@ -16,7 +17,27 @@ class Comment extends Component {
     super(props);
     this.state = {
       isEditMode: false,
+      modalDetails: {
+        isActive: false,
+        title: '',
+        body: '',
+        confirm: false,
+      },
     };
+  }
+
+  /**
+   * Toggles modal
+   */
+  toggleModal = (title = '', body = '', confirm = false) => {
+    this.setState(({ modalDetails }) => ({
+      modalDetails: {
+        isActive: !modalDetails.isActive,
+        title,
+        body,
+        confirm,
+      },
+    }));
   }
 
   /**
@@ -33,14 +54,19 @@ class Comment extends Component {
   }
 
   /**
-   * Function triggered by the card menu 'delete' option.
-   * Asks if the user is sure, and then removes the comment.
+   * Function used to delete a comment
    */
   handleRemoveComment = () => {
     const { id, parentId, deleteComment } = this.props;
-    if (window.confirm('Are you sure you want to delete this comment?')) {
-      deleteComment(id, parentId);
-    }
+    deleteComment(id, parentId);
+  }
+
+  /**
+   * Function triggered by the card menu 'delete' option.
+   * Asks if the user is sure, and then removes the comment.
+   */
+  confirmDeletePost = () => {
+    this.toggleModal('Are you sure?', 'This action cannot be undone', this.handleRemoveComment);
   }
 
   /**
@@ -51,7 +77,7 @@ class Comment extends Component {
   }
 
   render() {
-    const { isEditMode } = this.state;
+    const { isEditMode, modalDetails } = this.state;
     const {
       id,
       body,
@@ -62,6 +88,7 @@ class Comment extends Component {
 
     return (
       <div className="columns is-centered">
+        <Modal closeModal={this.toggleModal} modalDetails={modalDetails} />
         <div className="column comment-block is-half">
           <div className="card">
             <div className="card-content comment-content">
@@ -88,7 +115,7 @@ class Comment extends Component {
                 </div>
                 <div className="media-right">
                   <CardMenuOptions
-                    handleDelete={this.handleRemoveComment}
+                    handleDelete={this.confirmDeletePost}
                     toggleEditMode={this.toggleEditMode}
                     id={id}
                   />

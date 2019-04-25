@@ -35,9 +35,14 @@
   font-weight: 400 !important;
   &.is-danger {
     color: #ff3860 !important;
+  }
 }
+.modal-card-head {
+  background-color: $dark-green;
+  .modal-card-title {
+    color: whitesmoke;
+  }
 }
-
 .card-header {
   background-color: #43aa8b14;
 }

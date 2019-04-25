@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import PostHeader from './PostHeader';
 import CardBody from '../card/CardBody';
 import CardFooter from '../card/CardFooter';
+import Modal from '../Modal';
 import {
   handleEditPost,
   handleRemovePost,
@@ -20,7 +21,27 @@ class Post extends Component {
     this.state = {
       isEditMode: false,
       titleInput: '',
+      modalDetails: {
+        isActive: false,
+        title: '',
+        body: '',
+        confirm: false,
+      },
     };
+  }
+
+  /**
+   * Toggles modal
+   */
+  toggleModal = (title = '', body = '', confirm = false) => {
+    this.setState(({ modalDetails }) => ({
+      modalDetails: {
+        isActive: !modalDetails.isActive,
+        title,
+        body,
+        confirm,
+      },
+    }));
   }
 
   /**
@@ -47,13 +68,18 @@ class Post extends Component {
 
   /**
    * Function triggered by the card menu 'delete' option.
-   * Asks if the user is sure, and then removes the post.
+   * Asks if the user is sure about the deletion
+   */
+  confirmDeletePost = () => {
+    this.toggleModal('Are you sure?', 'This action cannot be undone', this.handleDeletePost);
+  }
+
+  /**
+   * Function used to actually delete a post
    */
   handleDeletePost = () => {
     const { id, deletePost } = this.props;
-    if (window.confirm('Are you sure you want to delete this post?')) {
-      deletePost(id);
-    }
+    deletePost(id);
   }
 
   /**
@@ -68,7 +94,7 @@ class Post extends Component {
   }
 
   render() {
-    const { isEditMode, titleInput } = this.state;
+    const { isEditMode, titleInput, modalDetails } = this.state;
     const {
       id,
       body,
@@ -78,6 +104,7 @@ class Post extends Component {
 
     return (
       <div className="columns is-centered">
+        <Modal closeModal={this.toggleModal} modalDetails={modalDetails} />
         <div className="column is-two-thirds">
           <div className="card">
             <PostHeader
@@ -85,7 +112,7 @@ class Post extends Component {
               toggleEditMode={this.toggleEditMode}
               handleTitleChange={this.handleTitleChange}
               titleInput={titleInput}
-              handleDeletePost={this.handleDeletePost}
+              handleDeletePost={this.confirmDeletePost}
               {...this.props}
             />
             <div className="card-content">
