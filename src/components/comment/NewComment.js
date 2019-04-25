@@ -7,6 +7,9 @@ import UserAvatar from '../UserAvatar';
 import TextInputField from '../TextInputField';
 import { generateId } from '../../utils/shared';
 
+/**
+ * Displays and handles a new comment form
+ */
 class NewComment extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +19,9 @@ class NewComment extends Component {
     }
   }
   /**
-   * Handles the savePost method, which is triggered by the editMode 'save' button.
+   * Triggered by the 'save' button.
+   * Checks if body and author are filled and handles comment saves.
+   * @param {string} body - content of the new comment
    */
   handleSaveComment = (body) => {
     const { addComment, parentId } = this.props;
@@ -30,13 +35,14 @@ class NewComment extends Component {
         author,
         parentId,
       };
-
       addComment(newPost);
       this.toggleEditMode();
     }
   }
   /**
-   * Toggles the post edit mode and clears all inputs
+   * Toggles the comment edit mode and clears all inputs
+   * @param {bool} mode - boolean, if passed, sets the edit mode to the value that was passed, else,
+   * just sets the edit mode as the opposite as it was before.
    */
   toggleEditMode = (mode) => {
     this.setState(({ isEditMode }) => ({
@@ -45,13 +51,14 @@ class NewComment extends Component {
     }));
   }
   /**
-   * Handles changes on the inputs
+   * Handles changes on the inputs.
    */
   handleChange = (e) => {
     this.setState({[e.target.name.toLowerCase()]: e.target.value});
   }
   render() {
     const { isEditMode, author } = this.state;
+
     return (
       <div className="columns is-centered">
         <div className="column comment-block is-half">
@@ -64,12 +71,17 @@ class NewComment extends Component {
             </header>
             {isEditMode
               && <div className="card-content comment-content">
-              <TextInputField name='Author' withLabel={true} value={author} handleChange={this.handleChange} />
-              <CardBody
-                handleSave={this.handleSaveComment}
-                toggleEditMode={this.toggleEditMode}
-              />
-            </div>
+                <TextInputField
+                  name='Author'
+                  withLabel={true}
+                  value={author}
+                  handleChange={this.handleChange}
+                />
+                <CardBody
+                  handleSave={this.handleSaveComment}
+                  toggleEditMode={this.toggleEditMode}
+                />
+              </div>
             }
           </div>
         </div>

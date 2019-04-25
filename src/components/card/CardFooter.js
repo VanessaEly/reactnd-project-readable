@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 import CardVoteMenu from './CardVoteMenu';
 
 /**
- * @constructor CardFooter
- * @description Creates the footer part of the post component
+ * Creates the footer part of cards
  */
 const CardFooter = (props) => {
   const { id, category, voteScore, commentCount, updateVote } = props;

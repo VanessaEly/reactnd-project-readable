@@ -3,8 +3,7 @@ import { getInitials } from '../utils/shared';
 import PropTypes from 'prop-types';
 
 /**
- * @constructor UserAvatar
- * @description Displays the user avatar
+ * Displays the user avatar and gets his initials
  */
 const UserAvatar = (props) => (
   <div className="media-left">

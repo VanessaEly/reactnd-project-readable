@@ -3,8 +3,7 @@ import Header from './Header';
 import NotFound from './NotFound';
 
 /**
- * @constructor PageNotFound
- * @description Display a not found message
+ * Display a page 404 not found message
  */
 const PageNotFound = (props) => (
   <Fragment>

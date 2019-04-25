@@ -1,51 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import PostSort from './post/PostSort';
 
 /**
- * @constructor CardBody
- * @description Creates the footer part of the post component
+ * Displays the sort card and calls its dropdowns
  */
-class Sort extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bodyInput: '',
-    }
-  }
-  componentWillMount(){
-    this.setState(() => ({
-      bodyInput: this.props.body,
-    }));
-  }
-  /**
-   * Handles changes on the editMode body input
-   */
-  handleBodyChange = (e) => {
-    this.setState({ bodyInput: e.target.value });
-  }
-  render() {
-    const { currentSort, sortChange } = this.props;
+const Sort = (props) => {
+  const { currentSort, sortChange } = props;
 
-    return (
-      <div className="columns is-centered">
-        <div className="column is-half">
-          <div className="card">
-            <header className="card-header">
-              <div className="media card-header-title is-centered">
-                Sort
-              </div>
-            </header>
-            <div className="card-content">
-              <PostSort
-                currentSort={currentSort}
-                sortChange={sortChange} />
+  return (
+    <div className="columns is-centered">
+      <div className="column is-half">
+        <div className="card">
+          <header className="card-header">
+            <div className="media card-header-title is-centered">
+              Sort
             </div>
+          </header>
+          <div className="card-content">
+            <PostSort
+              currentSort={currentSort}
+              sortChange={sortChange} />
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 Sort.propTypes = {
@@ -57,4 +37,3 @@ Sort.propTypes = {
 };
 
 export default Sort;
-

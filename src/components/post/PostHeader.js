@@ -6,8 +6,7 @@ import CardMenuOptions from '../card/CardMenuOptions';
 import UserAvatar from '../UserAvatar';
 
 /**
- * @constructor PostHeader
- * @description Creates the header part of the post component
+ * Creates the header part of the post component
  */
 const PostHeader = (props) => {
   const {
@@ -22,6 +21,7 @@ const PostHeader = (props) => {
     handleTitleChange,
     handleDeletePost,
   } = props;
+  
   return (
     <header className="card-header">
       <div className="media card-header-title">

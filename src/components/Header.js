@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+/**
+ * Creates the application header
+ */
 class Navbar extends Component {
   constructor(props) {
     // Required step: always call the parent class' constructor
@@ -10,8 +13,10 @@ class Navbar extends Component {
       navToggled: false,
     }
   }
-  toggleNav(e) {
-    e.preventDefault();
+  /**
+   * Toggles the burger dropdown menu (only visible on mobile version)
+   */
+  toggleBurgerMenu() {
     this.setState(prevState => ({ navToggled: !prevState.navToggled }));
   }
   render() {
@@ -34,7 +39,7 @@ class Navbar extends Component {
               <span
                 className={`navbar-burger burger ${isToggled}`}
                 data-target="navbarMenuHeroB"
-                onClick={(e) => this.toggleNav(e)}>
+                onClick={() => this.toggleBurgerMenu()}>
                 <span></span>
                 <span></span>
                 <span></span>

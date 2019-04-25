@@ -2,8 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 /**
- * @constructor TextInputField
- * @description Displays an input field
+ * Displays a text input field
  */
 const TextInputField = (props) => (
   <Fragment>
@@ -37,6 +36,7 @@ const TextInputField = (props) => (
 TextInputField.defaultProps = {
   withLabel: false,
 }
+
 TextInputField.propTypes = {
   value: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -45,4 +45,3 @@ TextInputField.propTypes = {
 };
 
 export default TextInputField;
-

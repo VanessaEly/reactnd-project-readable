@@ -1,8 +1,7 @@
 import React from 'react';
 
 /**
- * @constructor Footer
- * @description Creates the application footer
+ * Creates the application footer
  */
 const Footer = () => (
   <footer className="footer">

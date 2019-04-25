@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import TextInputField from '../TextInputField';
 
 /**
- * @constructor CardBody
- * @description Creates the footer part of the post component
+ * Creates the body part of cards
  */
 class CardBody extends Component {
   constructor(props) {
@@ -19,7 +18,7 @@ class CardBody extends Component {
     }));
   }
   /**
-   * Handles changes on the editMode body input
+   * Handles changes on the body input
    */
   handleBodyChange = (e) => {
     this.setState({ bodyInput: e.target.value });
@@ -30,10 +29,19 @@ class CardBody extends Component {
 
     return (
       <div className="content">
-        <TextInputField name='Message' withLabel={withLabel} value={bodyInput} handleChange={this.handleBodyChange}/>
+        <TextInputField
+          name='Message'
+          withLabel={withLabel}
+          value={bodyInput}
+          handleChange={this.handleBodyChange}
+        />
         <div className="buttons has-addons is-right">
-          <span className="button is-small" onClick={() => toggleEditMode()}>Cancel</span>
-          <span className="button is-info is-small" onClick={() => handleSave(bodyInput)}>Save</span>
+          <span className="button is-small" onClick={() => toggleEditMode()}>
+            Cancel
+          </span>
+          <span className="button is-info is-small" onClick={() => handleSave(bodyInput)}>
+            Save
+          </span>
         </div>
       </div>
     );
@@ -41,8 +49,8 @@ class CardBody extends Component {
 };
 
 CardBody.defaultProps = {
-  withLabel: false,
   body: '',
+  withLabel: false,
 }
 
 CardBody.propTypes = {

@@ -6,6 +6,9 @@ import TextInputField from '../TextInputField';
 import { handleAddPost } from '../../actions/posts';
 import { generateId } from '../../utils/shared';
 
+/**
+ * Displays and handles a new post form
+ */
 class NewPost extends Component {
   constructor(props) {
     super(props);
@@ -23,14 +26,16 @@ class NewPost extends Component {
     this.setState({[e.target.name.toLowerCase()]: e.target.value});
   }
   /**
-   * Handles category selection
+   * Handles category selection, setting the category state
+   * @param {string} categoryName - name of the category that was selected
    */
   selectCategory = (categoryName) => {
     this.setState({ category: categoryName });
   }
-  selectCategory
   /**
    * Toggles the post edit mode and clears all inputs
+   * @param {bool} mode - boolean, if passed, sets the edit mode to the value that was passed, else,
+   * just sets the edit mode as the opposite as it was before.
    */
   toggleEditMode = (mode) => {
     this.setState(({ isEditMode }) => ({
@@ -41,7 +46,9 @@ class NewPost extends Component {
     }));
   }
   /**
-   * Handles the savePost method, which is triggered by the 'save' button.
+   * Triggered by the 'save' button.
+   * Checks if title, author, body and category are filled and handles post addition.
+   * @param {string} body - content of the new post
    */
   handleSavePost = (body) => {
     const { addPost } = this.props;
@@ -119,16 +126,13 @@ class NewPost extends Component {
     );
   }
 }
+
 const mapDispatchToProps = dispatch => ({
   addPost: (details) => {
     dispatch(handleAddPost(details));
   },
 });
 
-function mapStateToProps ({ categories }) {
-  return {
-    categories,
-  }
-};
+const mapStateToProps = ({ categories }) => ({ categories });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewPost);

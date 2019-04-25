@@ -1,8 +1,7 @@
 import React from 'react';
 
 /**
- * @constructor NotFound
- * @description Display a not found message
+ * Display a not found message
  */
 const NotFound = (props) => (
   <div className="hero-body">

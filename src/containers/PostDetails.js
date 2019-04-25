@@ -9,6 +9,9 @@ import NotFound from '../components/NotFound';
 import Comment from '../components/comment/Comment';
 import NewComment from '../components/comment/NewComment';
 
+/**
+ * Displays the page that contains details about a post, including its comment list
+ */
 class PostDetails extends Component {
   componentDidMount() {
     const {

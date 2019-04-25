@@ -1,8 +1,7 @@
 import React from 'react';
 
 /**
- * @constructor Loading
- * @description Creates the application loading
+ * Creates the application loading
  */
 const Loading = () => (
   <div className="columns is-centered">

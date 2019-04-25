@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Displays the sort post dropdowns and handles its event triggers
+ */
 class PostSort extends Component {
   constructor(props) {
     // Required step: always call the parent class' constructor

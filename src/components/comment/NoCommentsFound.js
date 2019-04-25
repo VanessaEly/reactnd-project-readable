@@ -2,8 +2,7 @@
 import React from 'react';
 
 /**
- * @constructor NoCommentsFound
- * @description Display a comments not found message
+ * Displays a comments not found message
  */
 const NoCommentsFound = () => (
   <div className="columns is-centered">

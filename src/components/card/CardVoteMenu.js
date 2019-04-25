@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * Displays and handles up and down votes, as long as the user's score
+ */
 class CardVoteMenu extends Component {
   constructor(props) {
     super(props);
@@ -8,7 +11,12 @@ class CardVoteMenu extends Component {
       currentVote: false,
     };
   }
-
+  /**
+   * Function used to handle up and down votes that were pressed by the user. This calls the
+   * 'updateVote' function that was received as props, allowing it to be used by both
+   * posts and comments.
+   * @param {string} option - Which vote option was pressed, could be 'upVote' or 'downVote'
+   */
   handleVote(option) {
     const { id, updateVote } = this.props;
     const { currentVote } = this.state;
@@ -24,10 +32,10 @@ class CardVoteMenu extends Component {
       updateVote(id, oppositeOption);
     }
   }
-
   render() {
     const { voteScore } = this.props;
     const { currentVote } = this.state;
+
     return (
       <div className="thumbs-content card-header-icon">
         <span
@@ -49,6 +57,7 @@ class CardVoteMenu extends Component {
     );
   }
 }
+
 CardVoteMenu.propTypes = {
   id: PropTypes.string.isRequired,
   voteScore: PropTypes.number.isRequired,

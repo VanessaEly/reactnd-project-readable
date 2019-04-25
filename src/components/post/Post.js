@@ -11,6 +11,9 @@ import {
   fetchVotePost,
 } from '../../actions/posts';
 
+/**
+ * Displays a single post and handles post updates
+ */
 class Post extends Component {
   constructor(props) {
     super(props);
@@ -21,12 +24,15 @@ class Post extends Component {
   }
   /**
    * Handles changes on the editMode title input
+   * @param {Object} e - Event that triggered this function
    */
   handleTitleChange = (e) => {
     this.setState({titleInput: e.target.value});
   }
   /**
-   * Handles the savePost method, which is triggered by the editMode 'save' button.
+   * Triggered by the 'save' button.
+   * Checks if title and body fields are filled and handles post saves.
+   * @param {string} body - content of the edited post message
    */
   handleSavePost = (body) => {
     const { id, savePost } = this.props;
@@ -36,6 +42,10 @@ class Post extends Component {
       this.toggleEditMode();
     }
   }
+  /**
+   * Function triggered by the card menu 'delete' option.
+   * Asks if the user is sure, and then removes the post.
+   */
   handleDeletePost = () => {
     const { id, deletePost } = this.props;
     if (window.confirm('Are you sure you want to delete this post?')) {

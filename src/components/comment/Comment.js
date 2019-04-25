@@ -9,6 +9,9 @@ import CardMenuOptions from '../card/CardMenuOptions';
 import { timestampToDate } from '../../utils/shared';
 import UserAvatar from '../UserAvatar';
 
+/**
+ * Displays a single comment and handles comment updates
+ */
 class Comment extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +20,9 @@ class Comment extends Component {
     }
   }
   /**
-   * Handles the savePost method, which is triggered by the editMode 'save' button.
+   * Function triggered by the 'save' button.
+   * Checks if body content was filled, and then submits the save.
+   * @param {string} body - content of the body (comment message) that is being saved
    */
   handleSaveComment = (body) => {
     const { id, saveComment } = this.props;
@@ -27,16 +32,20 @@ class Comment extends Component {
     }
   }
   /**
-   * Toggles the post edit mode and clears all inputs
+   * Function triggered by the card menu 'delete' option.
+   * Asks if the user is sure, and then removes the comment.
    */
-  toggleEditMode = () => {
-    this.setState(({ isEditMode }) => ({ isEditMode: !isEditMode }));
-  }
   handleRemoveComment = () => {
     const { id, parentId, deleteComment } = this.props;
     if (window.confirm('Are you sure you want to delete this comment?')) {
       deleteComment(id, parentId);
     }
+  }
+  /**
+   * Toggles the comment edit mode and clears all inputs
+   */
+  toggleEditMode = () => {
+    this.setState(({ isEditMode }) => ({ isEditMode: !isEditMode }));
   }
   render() {
     const { isEditMode } = this.state;
@@ -47,6 +56,7 @@ class Comment extends Component {
       timestamp,
       updateVoteComment,
     } = this.props;
+
     return (
       <div className="columns is-centered">
         <div className="column comment-block is-half">
@@ -61,13 +71,13 @@ class Comment extends Component {
                       <small>{` - ${timestampToDate(timestamp)}`}</small>
                     </p>
                     {!isEditMode
-                        ? <p>{ body }</p>
-                        : <CardBody
-                          body={body}
-                          handleSave={this.handleSaveComment}
-                          toggleEditMode={this.toggleEditMode}
-                        />
-                      }
+                      ? <p>{ body }</p>
+                      : <CardBody
+                        body={body}
+                        handleSave={this.handleSaveComment}
+                        toggleEditMode={this.toggleEditMode}
+                      />
+                    }
                   </div>
                   <CardFooter updateVote={updateVoteComment} {...this.props} />
                 </div>

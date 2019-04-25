@@ -9,6 +9,9 @@ import Post from '../components/post/Post';
 import Loading from '../components/Loading';
 import NotFound from '../components/NotFound';
 
+/**
+ * Dashboard handles the post list pages, including the ones filtered by category
+ */
 class Dashboard extends Component {
   constructor(props) {
     // Required step: always call the parent class' constructor
@@ -39,6 +42,8 @@ class Dashboard extends Component {
   /**
    * Method used to get posts based on the category that was passed to it
    * @param {String} category - The category that we currently are looking for.
+   * @param {Object} sort - needs to have a field and an order ('Ascending' or 'Descending')
+   * property. We get this sort object by selecting our sort dropdowns.
    */
   getPosts(category, sort) {
     const { getPostsByCategory, getAllPosts } = this.props;
@@ -73,6 +78,7 @@ class Dashboard extends Component {
   render() {
     const { posts, match } = this.props;
     const { currentSort } = this.state;
+
     return (
       <Fragment>
         <Header match={match}/>
@@ -119,8 +125,6 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-const mapStateToProps = ({ posts }) => ({
-  posts
-});
+const mapStateToProps = ({ posts }) => ({ posts });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
